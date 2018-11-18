@@ -16,6 +16,18 @@ export default reduxApi({
     url: '/AvailableSeatStatusList/:stationId',
     options: jsonOptions,
   },
+  stations: {
+    url: '/Station',
+    options: jsonOptions,
+  },
+  prices: {
+    url: '/ODFare/:originStationId/to/:destinationStationID',
+    options: jsonOptions,
+  },
+  times: {
+    url: '/DailyTimetable/OD/:originStationId/to/:destinationStationID/:date',
+    options: jsonOptions,
+  }
 })
   .use('responseHandler', (err, data) => {
     if (err) {
@@ -26,7 +38,9 @@ export default reduxApi({
         console.log('error');
       }
     } else if (data) {
-      return camelizeKeys(data);
+      if (data && data.length > 0) {
+        return { status: 1, result: camelizeKeys(data) };
+      }
     }
     return { status: 0 };
   })
