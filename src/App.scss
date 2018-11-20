@@ -1,9 +1,84 @@
+body {
+  font-family: PingFang TC, 黑體-繁, Heiti TC, 蘋果儷中黑, Apple LiGothic Medium,
+    微軟正黑體, Microsoft JhengHei, sans-serif !important;
+}
+
 .active {
   background-color: #dfdfdf;
 }
 
-.form-group label {
-  margin-top: 5px;
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 20px;
+
+  @media screen and (max-width: 767px) {
+    top: calc(90vh - 260px);
+    z-index: 999;
+  }
+}
+
+.desktop--hide {
+  @media screen and (min-width: 767px) {
+    display: none;
+  }
+}
+
+.control {
+  height: auto;
+  background-color: rgba(#dd5500, 0.7);
+  padding: 25px 15px 15px;
+
+  label {
+    font-size: 20px;
+    color: #fff;
+  }
+
+  .control__swap {
+    border: none;
+    background: none;
+    color: #fff;
+    font-size: 20px;
+    margin-left: 75px;
+  }
+}
+
+.table-responsive {
+  min-height: calc(100vh - 128px);
+}
+
+.content--mobile {
+  @media screen and (max-width: 767px) {
+    transform: translateY(-250px);
+  }
+}
+
+.mobile--hide {
+  @media screen and (max-width: 767px) {
+    display: none;
+  }
+}
+
+.form-group {
+  label {
+    padding-right: 15px;
+  }
+
+  select {
+    width: 75px;
+    min-height: 40px;
+    font-size: 18px;
+  }
+
+  input {
+    padding-left: 8px;
+    width: 150px;
+    min-height: 40px;
+  }
+}
+
+select {
+  transform: translateY(1px);
 }
 
 .center {
@@ -12,12 +87,22 @@
 
 .pointer {
   cursor: pointer;
+
   &:hover {
     background-color: #dfdfdf;
   }
+
   &:focus {
     background-color: #dfdfdf;
   }
+}
+
+.footer {
+  color: #fff;
+  padding-top: 25px;
+  background: #4d4d4d;
+  width: 100%;
+  height: 65px;
 }
 
 .arrow {
