@@ -17,10 +17,14 @@ class App extends Component {
       updateTime: '',
       times: [],
       prices: [],
+      sortActiveMode: 0,
+      departureTimeDSC: true,
+      travelTimeDSC: true,
     };
-
     this.handleInputChange = this.handleInputChange.bind(this);
     this.submit = this.submit.bind(this);
+    this.toggleSortDepartureTime = () => this.setState({ departureTimeDSC: !this.state.departureTimeDSC, sortActiveMode: 0 });
+    this.toggleSortTravelTime = () => this.setState({ travelTimeDSC: !this.state.travelTimeDSC, sortActiveMode: 1 });
   }
 
   componentDidMount() {
@@ -77,6 +81,9 @@ class App extends Component {
       availableSeats,
       times,
       prices,
+      departureTimeDSC,
+      travelTimeDSC,
+      sortActiveMode,
     } = this.state;
     const validatedStations = validateData(stations);
     let optionOriginStations = [];
@@ -97,11 +104,9 @@ class App extends Component {
     if (availableSeats && availableSeats.length) {
       // TODO: 先過濾資料，升序降序
       let finalData = availableSeats;
-      finalData = getDepartureTimeAfterNow(date, finalData);
+      finalData = getDepartureTimeAfterNow({ date, finalData, departureTimeDSC, active: sortActiveMode === 0 });
       finalData = getAvailableSeats(destinationStation, finalData);
-      if (times && times.length) {
-        finalData = getTravelTimes(date, times, finalData);
-      }
+      finalData = getTravelTimes({date, times, finalData,travelTimeDSC, active: sortActiveMode === 1 });
       blockTableRows = finalData.map((availableSeat) => {
         const {
           departureTime,
@@ -148,15 +153,15 @@ class App extends Component {
             <thead>
               <tr>
                 <th>起站名稱</th>
-                <th className="active">
+                <th className="pointer" onClick={this.toggleSortDepartureTime}>
                   <span>起站發車時間</span>
-                  <span className="arrow arrow--asc" />
+                  <span className={departureTimeDSC ? 'arrow arrow--dsc' : 'arrow arrow--asc'} />
                 </th>
                 <th>訖站名稱</th>
                 <th>訖站到達時間</th>
-                <th className="active">
+                <th className="pointer" onClick={this.toggleSortTravelTime}>
                   <span>總共乘車時間</span>
-                  <span className="arrow arrow--asc" />
+                  <span className={travelTimeDSC ? 'arrow arrow--dsc' : 'arrow arrow--asc'} />
                 </th>
                 <th>票價</th>
               </tr>
