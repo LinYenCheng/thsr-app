@@ -1,6 +1,7 @@
 import 'isomorphic-fetch';
 import { camelizeKeys } from 'humps';
 import reduxApi from 'redux-api';
+import Swal from 'sweetalert2';
 import adapterFetch from 'redux-api/lib/adapters/fetch';
 
 const API_URL = 'https://ptx.transportdata.tw/MOTC/v2/Rail/THSR';
@@ -9,7 +10,7 @@ const jsonOptions = {
     'Content-Type': 'application/json',
   },
 };
-
+let isMoalOpen = false;
 // redux-api documentation: https://github.com/lexich/redux-api/blob/master/docs/DOCS.md
 export default reduxApi({
   availableSeats: {
@@ -31,11 +32,31 @@ export default reduxApi({
 })
   .use('responseHandler', (err, data) => {
     if (err) {
-      if (err.status === 401) {
-        console.log('error');
-      }
-      if (err.status === 500 || err) {
-        console.log('error');
+      console.log(err)
+      if (err.status === 403) {
+        if (!isMoalOpen) {
+          Swal({
+            type: 'error',
+            title: '請更換日期',
+            showConfirmButton: false,
+            showCloseButton: true,
+            onClose: () => {
+              isMoalOpen = false;
+            },
+          });
+        }
+      } else if (err.status === 500 || err) {
+        if (!isMoalOpen) {
+          Swal({
+            type: 'error',
+            title: '連線或伺服器發生錯誤',
+            showConfirmButton: false,
+            showCloseButton: true,
+            onClose: () => {
+              isMoalOpen = false;
+            },
+          });
+        }
       }
     } else if (data) {
       if (data && data.length > 0) {
