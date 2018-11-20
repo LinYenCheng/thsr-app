@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import rest from './rest';
 import './App.scss';
-import { validateData, getDepartureTimeAfterNow, getAvailableSeats, getTravelTimes } from './util';
+import { validateData, getItemsWithDepartureTimeAfterNow, getItemsWithAvailableSeats, getItemsWithTravelTimes } from './util';
 
 class App extends Component {
   constructor(props) {
@@ -104,9 +104,9 @@ class App extends Component {
     if (availableSeats && availableSeats.length) {
       // TODO: 先過濾資料，升序降序
       let finalData = availableSeats;
-      finalData = getDepartureTimeAfterNow({ date, finalData, departureTimeDSC, active: sortActiveMode === 0 });
-      finalData = getAvailableSeats(destinationStation, finalData);
-      finalData = getTravelTimes({date, times, finalData,travelTimeDSC, active: sortActiveMode === 1 });
+      finalData = getItemsWithDepartureTimeAfterNow({ date, finalData, departureTimeDSC, active: sortActiveMode === 0 });
+      finalData = getItemsWithAvailableSeats(destinationStation, finalData);
+      finalData = getItemsWithTravelTimes({ date, times, finalData, travelTimeDSC, active: sortActiveMode === 1 });
       blockTableRows = finalData.map((availableSeat) => {
         const {
           departureTime,
@@ -137,39 +137,70 @@ class App extends Component {
     }
 
     return (
-      <div className="App">
-        <input name="date" type="date" value={date} onChange={this.handleInputChange} />
-        <select name="originStation" value={originStation} onChange={this.handleInputChange}>
-          {optionOriginStations}
-        </select>
-        <select name="destinationStation" value={destinationStation} onChange={this.handleInputChange}>
-          {optionDestinationStations}
-        </select>
-        <button type="button" onClick={this.submit}>送出</button>
-        <br />
-        <span>{moment(updateTime).format('YYYY-MM-DD HH:mm:ss')}</span>
-        <div className="table-responsive">
-          <table className="table">
-            <thead>
-              <tr>
-                <th>起站名稱</th>
-                <th className="pointer" onClick={this.toggleSortDepartureTime}>
-                  <span>起站發車時間</span>
-                  <span className={departureTimeDSC ? 'arrow arrow--dsc' : 'arrow arrow--asc'} />
-                </th>
-                <th>訖站名稱</th>
-                <th>訖站到達時間</th>
-                <th className="pointer" onClick={this.toggleSortTravelTime}>
-                  <span>總共乘車時間</span>
-                  <span className={travelTimeDSC ? 'arrow arrow--dsc' : 'arrow arrow--asc'} />
-                </th>
-                <th>票價</th>
-              </tr>
-            </thead>
-            <tbody>
-              {blockTableRows}
-            </tbody>
-          </table>
+      <div className="App container">
+        <div className="row">
+          <div className="col-md-4 col-md-push-4 center">
+            <div className="row">
+              <div className="form-group">
+                <label htmlFor="date" class="col-sm-4 col-xs-2 control-label">日期</label>
+                <div className="col-sm-8 col-xs-10">
+                  <input name="date" id="date" className="form-control " type="date" value={date} onChange={this.handleInputChange} />
+                </div>
+              </div>
+              <div className="form-group">
+                <label htmlFor="originStation" class="col-sm-4 col-xs-2 control-label">起點</label>
+                <div className="col-sm-8 col-xs-10">
+                  <select name="originStation" id="originStation" className="form-control" value={originStation} onChange={this.handleInputChange}>
+                    {optionOriginStations}
+                  </select>
+                </div>
+                <label htmlFor="destinationStation" class="col-sm-4 col-xs-2 control-label">目的</label>
+                <div className="col-sm-8 col-xs-10">
+                  <select name="destinationStation" id="destinationStation" className="form-control" value={destinationStation} onChange={this.handleInputChange}>
+                    {optionDestinationStations}
+                  </select>
+                </div>
+              </div>
+              <div className="form-group col-sm-12">
+                <button type="button" style={{ marginTop: '10px' }} className="btn btn-primary" onClick={this.submit}>請選擇後送出</button>
+                <br />
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-12">
+            <div className="table-responsive">
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>起站名稱</th>
+                    <th id="departureTime" className="pointer" onClick={this.toggleSortDepartureTime}>
+                      <span>起站發車時間</span>
+                      <span className={departureTimeDSC ? 'arrow arrow--dsc' : 'arrow arrow--asc'} />
+                    </th>
+                    <th>訖站名稱</th>
+                    <th>訖站到達時間</th>
+                    <th className="pointer" onClick={this.toggleSortTravelTime}>
+                      <span>總共乘車時間</span>
+                      <span className={travelTimeDSC ? 'arrow arrow--dsc' : 'arrow arrow--asc'} />
+                    </th>
+                    <th>票價</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {blockTableRows}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-12 center">
+            <span><i className="glyphicon glyphicon-time" /> 更新時間:</span>
+            <span>{moment(updateTime).format('YYYY-MM-DD HH:mm:ss')}</span>
+          </div>
         </div>
       </div>
     );

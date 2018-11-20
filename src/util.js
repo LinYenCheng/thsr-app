@@ -14,7 +14,7 @@ function minutesOfDay(m) {
   return m.minutes() + m.hours() * 60;
 }
 
-function getDepartureTimeAfterNow(data) {
+function getItemsWithDepartureTimeAfterNow(data) {
   const { date, finalData: originalItems, departureTimeDSC, active } = data;
   const finalItems = originalItems
   .filter(item => minutesOfDay(moment(`${date} ${item.departureTime}`)) > minutesOfDay(moment()));
@@ -30,7 +30,7 @@ function getDepartureTimeAfterNow(data) {
   return finalItems;
 }
 
-function getAvailableSeats(destinationStation, originalItems) {
+function getItemsWithAvailableSeats(destinationStation, originalItems) {
   return originalItems.filter((item) => {
     const { stopStations } = item;
     const indexItem = stopStations.findIndex(stopStation => stopStation.stationID === destinationStation);
@@ -54,7 +54,7 @@ function getTravelTime(date, start, end) {
   return result;
 }
 
-function getTravelTimes(data) {
+function getItemsWithTravelTimes(data) {
   const { date, times, finalData: originalItems, travelTimeDSC, active } = data;
   const finalItems = originalItems.map((availableSeat) => {
     const { departureTime, trainNo } = availableSeat;
@@ -82,9 +82,9 @@ function getTravelTimes(data) {
   });
   if (active) {
     if (travelTimeDSC) {
-      return finalItems.sort((a, b) => minutesOfDay(moment(`${date} ${a.travelTime}`)) - minutesOfDay(moment(`${date} ${b.travelTime}`)));
-    } else {
       return finalItems.sort((b, a) => minutesOfDay(moment(`${date} ${a.travelTime}`)) - minutesOfDay(moment(`${date} ${b.travelTime}`)));
+    } else {
+      return finalItems.sort((a, b) => minutesOfDay(moment(`${date} ${a.travelTime}`)) - minutesOfDay(moment(`${date} ${b.travelTime}`)));
     }
   }
   return finalItems;
@@ -92,9 +92,9 @@ function getTravelTimes(data) {
 
 export {
   validateData,
-  getDepartureTimeAfterNow,
-  getAvailableSeats,
+  getItemsWithDepartureTimeAfterNow,
+  getItemsWithAvailableSeats,
   getDestinationInfo,
   getTravelTime,
-  getTravelTimes,
+  getItemsWithTravelTimes,
 }
