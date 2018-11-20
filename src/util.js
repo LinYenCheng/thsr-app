@@ -14,10 +14,20 @@ function minutesOfDay(m) {
   return m.minutes() + m.hours() * 60;
 }
 
-function getDepartureTimeAfterNow(date, originalItems) {
-  return originalItems
-    .filter(item => minutesOfDay(moment(`${date} ${item.departureTime}`)) > minutesOfDay(moment()))
-    .sort((a, b) => minutesOfDay(moment(`${date} ${a.departureTime}`)) - minutesOfDay(moment(`${date} ${b.departureTime}`)));
+function getDepartureTimeAfterNow(data) {
+  const { date, finalData: originalItems, departureTimeDSC, active } = data;
+  const finalItems = originalItems
+  .filter(item => minutesOfDay(moment(`${date} ${item.departureTime}`)) > minutesOfDay(moment()));
+  if (active) {
+    if (departureTimeDSC) {
+      return finalItems
+        .sort((a, b) => minutesOfDay(moment(`${date} ${a.departureTime}`)) - minutesOfDay(moment(`${date} ${b.departureTime}`)));
+    } else {
+      return finalItems
+        .sort((b, a) => minutesOfDay(moment(`${date} ${a.departureTime}`)) - minutesOfDay(moment(`${date} ${b.departureTime}`)));
+    }
+  } 
+  return finalItems;
 }
 
 function getAvailableSeats(destinationStation, originalItems) {
@@ -44,7 +54,8 @@ function getTravelTime(date, start, end) {
   return result;
 }
 
-function getTravelTimes(date, times, originalItems) {
+function getTravelTimes(data) {
+  const { date, times, finalData: originalItems, travelTimeDSC, active } = data;
   const finalItems = originalItems.map((availableSeat) => {
     const { departureTime, trainNo } = availableSeat;
     let destinationInfo = {};
@@ -69,8 +80,14 @@ function getTravelTimes(date, times, originalItems) {
       travelTime,
     };
   });
-
-  return finalItems.sort((a, b) => minutesOfDay(moment(`${date} ${a.travelTime}`)) - minutesOfDay(moment(`${date} ${b.travelTime}`)));
+  if (active) {
+    if (travelTimeDSC) {
+      return finalItems.sort((a, b) => minutesOfDay(moment(`${date} ${a.travelTime}`)) - minutesOfDay(moment(`${date} ${b.travelTime}`)));
+    } else {
+      return finalItems.sort((b, a) => minutesOfDay(moment(`${date} ${a.travelTime}`)) - minutesOfDay(moment(`${date} ${b.travelTime}`)));
+    }
+  }
+  return finalItems;
 }
 
 export {

@@ -1,3 +1,13 @@
+.pointer {
+  cursor: pointer;
+  &:hover {
+    background-color: #dfdfdf;
+  }
+  &:focus {
+    background-color: #dfdfdf;
+  }
+}
+
 .active {
   background-color: #dfdfdf;
 }
