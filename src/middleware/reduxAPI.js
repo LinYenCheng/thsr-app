@@ -7,54 +7,54 @@ import adapterFetch from 'redux-api/lib/adapters/fetch';
 const API_URL = 'https://ptx.transportdata.tw/MOTC/v2/Rail/THSR';
 const jsonOptions = {
   headers: {
-    'Content-Type': 'application/json',
-  },
+    'Content-Type': 'application/json'
+  }
 };
-let isMoalOpen = false;
+let isModalOpen = false;
 // redux-api documentation: https://github.com/lexich/redux-api/blob/master/docs/DOCS.md
 export default reduxApi({
-  availableSeats: {
-    url: '/AvailableSeatStatusList/:stationId',
-    options: jsonOptions,
-  },
   stations: {
     url: '/Station',
-    options: jsonOptions,
-  },
-  prices: {
-    url: '/ODFare/:originStationId/to/:destinationStationID',
-    options: jsonOptions,
-  },
-  times: {
-    url: '/DailyTimetable/OD/:originStationId/to/:destinationStationID/:date',
-    options: jsonOptions,
+    options: jsonOptions
   }
+  // availableSeats: {
+  //   url: '/AvailableSeatStatusList/:stationId',
+  //   options: jsonOptions,
+  // },
+  // prices: {
+  //   url: '/ODFare/:originStationId/to/:destinationStationID',
+  //   options: jsonOptions,
+  // },
+  // times: {
+  //   url: '/DailyTimetable/OD/:originStationId/to/:destinationStationID/:date',
+  //   options: jsonOptions,
+  // }
 })
   .use('responseHandler', (err, data) => {
     if (err) {
-      console.log(err)
+      console.log(err);
       if (err.status === 403) {
-        if (!isMoalOpen) {
+        if (!isModalOpen) {
           Swal({
             type: 'error',
             title: '請更換日期',
             showConfirmButton: false,
             showCloseButton: true,
             onClose: () => {
-              isMoalOpen = false;
-            },
+              isModalOpen = false;
+            }
           });
         }
       } else if (err.status === 500 || err) {
-        if (!isMoalOpen) {
+        if (!isModalOpen) {
           Swal({
             type: 'error',
             title: '連線或伺服器發生錯誤',
             showConfirmButton: false,
             showCloseButton: true,
             onClose: () => {
-              isMoalOpen = false;
-            },
+              isModalOpen = false;
+            }
           });
         }
       }
@@ -67,7 +67,7 @@ export default reduxApi({
   })
   .use('options', (url, params, getState) => {
     const headers = {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     };
     return { headers };
   })
