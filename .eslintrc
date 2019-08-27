@@ -1,61 +1,21 @@
 {
-  "extends": [
-    "airbnb",
-    "prettier"
-  ],
-  "parser": "babel-eslint",
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "sourceType": "module",
-    "allowImportExportEverywhere": true
-  },
-  "plugins": [
-    "prettier",
-    "react-hooks"
-  ],
+  "extends": ["airbnb", "prettier"],
+  "plugins": ["prettier", "react-hooks"],
   "rules": {
-    "prettier/prettier": [
-      "error"
-    ],
-    "react-hooks/rules-of-hooks": "error",
-    "no-const-assign": "warn",
-    "no-this-before-super": "warn",
-    "no-undef": "warn",
-    "no-unreachable": "warn",
-    "no-unused-vars": "warn",
-    "constructor-super": "warn",
-    "valid-typeof": "warn",
+    "prettier/prettier": ["error"],
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [
-          ".js",
-          ".jsx"
-        ]
+        "extensions": [".js", ".jsx"]
       }
     ],
-    "linebreak-style": [
-      "error",
-      "windows"
-    ],
-    "jsx-a11y/anchor-is-valid": [
-      "error",
-      {
-        "components": [
-          "Link"
-        ],
-        "specialLink": [
-          "to"
-        ]
-      }
-    ]
+    "react-hooks/rules-of-hooks": "error"
   },
   "env": {
     "browser": true,
     "commonjs": true,
     "jquery": true,
+    "jest": true,
     "es6": true,
     "node": true
   }

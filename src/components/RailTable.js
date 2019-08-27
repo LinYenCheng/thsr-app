@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import {
   getItemsWithDepartureTimeAfterNow,
   getItemsWithAvailableSeats,
-  getItemsWithTravelTimes
-} from '../util';
+  getItemsWithTravelTimes,
+} from '../util/util';
 
 class RailTable extends Component {
   constructor(props) {
@@ -13,22 +13,20 @@ class RailTable extends Component {
     this.state = {
       sortActiveMode: 0,
       departureTimeDSC: true,
-      travelTimeDSC: true
+      travelTimeDSC: true,
     };
-    // this.handleInputChange = this.handleInputChange.bind(this);
-    // this.submit = this.submit.bind(this);
     this.toggleSortDepartureTime = () => {
       const { departureTimeDSC } = this.state;
       this.setState({
         departureTimeDSC: !departureTimeDSC,
-        sortActiveMode: 0
+        sortActiveMode: 0,
       });
     };
     this.toggleSortTravelTime = () => {
       const { travelTimeDSC } = this.state;
       this.setState({
         travelTimeDSC: !travelTimeDSC,
-        sortActiveMode: 1
+        sortActiveMode: 1,
       });
     };
   }
@@ -42,13 +40,13 @@ class RailTable extends Component {
       isSubmit,
       // originStation,
       destinationStation,
-      availableSeats
+      availableSeats,
     } = this.props;
     const { departureTimeDSC, travelTimeDSC, sortActiveMode } = this.state;
     let blockTableRows;
     if (isLoading && isSubmit) {
       blockTableRows = (
-        <tr>
+        <tr id="row-searching">
           <td colSpan="6" style={{ textAlign: 'center' }}>
             查詢中
           </td>
@@ -56,7 +54,7 @@ class RailTable extends Component {
       );
     } else if (!isLoading && isSubmit) {
       blockTableRows = (
-        <tr>
+        <tr id="row-nodata">
           <td colSpan="6" style={{ textAlign: 'center' }}>
             無座位可販售
           </td>
@@ -75,56 +73,53 @@ class RailTable extends Component {
     if (availableSeats && availableSeats.length && !isLoading && isSubmit) {
       // 先過濾資料，升序降序
       let finalData = availableSeats;
-
       finalData = getItemsWithDepartureTimeAfterNow({
         date,
         finalData,
         departureTimeDSC,
-        active: sortActiveMode === 0
+        active: sortActiveMode === 0,
       });
-
+      // console.log(finalData);
       finalData = getItemsWithAvailableSeats(destinationStation, finalData);
-      // console.log(times);
+      // console.log(destinationStation, finalData);
       finalData = getItemsWithTravelTimes({
         date,
         times,
         finalData,
         travelTimeDSC,
-        active: sortActiveMode === 1
+        active: sortActiveMode === 1,
       });
 
-      if (finalData.length) {
-        blockTableRows = finalData.map(availableSeat => {
-          const {
-            departureTime,
-            stationName,
-            destinationStationName,
-            arrivalTime,
-            hasStandardSeat,
-            travelTime
-          } = availableSeat;
-          let price;
-          if (prices) {
-            if (hasStandardSeat) {
-              price = prices[0].fares.map(fare => `${fare.ticketType}:${fare.price}`).toString();
-            } else {
-              price = prices[0].fares
-                .filter(fare => fare.ticketType !== '標準')
-                .map(fare => `${fare.ticketType}:${fare.price}`)
-                .toString();
-            }
+      blockTableRows = finalData.map(availableSeat => {
+        const {
+          departureTime,
+          stationName,
+          destinationStationName,
+          arrivalTime,
+          hasStandardSeat,
+          travelTime,
+        } = availableSeat;
+        let price;
+        if (prices) {
+          if (hasStandardSeat) {
+            price = prices[0].fares.map(fare => `${fare.ticketType}:${fare.price}`).toString();
+          } else {
+            price = prices[0].fares
+              .filter(fare => fare.ticketType !== '標準')
+              .map(fare => `${fare.ticketType}:${fare.price}`)
+              .toString();
           }
-          return (
-            <tr key={departureTime}>
-              <td>{`${stationName.zhTw}|${destinationStationName}`}</td>
-              <td>{departureTime}</td>
-              <td>{arrivalTime}</td>
-              <td>{travelTime}</td>
-              <td>{price}</td>
-            </tr>
-          );
-        });
-      }
+        }
+        return (
+          <tr key={departureTime}>
+            <td>{`${stationName.zhTw}|${destinationStationName}`}</td>
+            <td>{departureTime}</td>
+            <td>{arrivalTime}</td>
+            <td>{travelTime}</td>
+            <td>{price}</td>
+          </tr>
+        );
+      });
     }
     return (
       <div className="table-responsive">
@@ -137,7 +132,7 @@ class RailTable extends Component {
                 <span className={departureTimeDSC ? 'arrow arrow--asc' : 'arrow arrow--dsc'} />
               </th>
               <th>到達</th>
-              <th className="pointer" onClick={this.toggleSortTravelTime}>
+              <th id="travelTime" className="pointer" onClick={this.toggleSortTravelTime}>
                 <span>總時間</span>
                 <span className={travelTimeDSC ? 'arrow arrow--dsc' : 'arrow arrow--asc'} />
               </th>
@@ -153,7 +148,14 @@ class RailTable extends Component {
 
 RailTable.propTypes = {
   availableSeats: PropTypes.array,
-  prices: PropTypes.array
+  prices: PropTypes.array,
+  isLoading: PropTypes.bool,
+  isSubmit: PropTypes.bool,
+};
+
+RailTable.defaultProps = {
+  isLoading: true,
+  isSubmit: true,
 };
 
 export default RailTable;

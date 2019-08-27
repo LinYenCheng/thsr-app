@@ -7,16 +7,16 @@ import adapterFetch from 'redux-api/lib/adapters/fetch';
 const API_URL = 'https://ptx.transportdata.tw/MOTC/v2/Rail/THSR';
 const jsonOptions = {
   headers: {
-    'Content-Type': 'application/json'
-  }
+    'Content-Type': 'application/json',
+  },
 };
 let isModalOpen = false;
 // redux-api documentation: https://github.com/lexich/redux-api/blob/master/docs/DOCS.md
 export default reduxApi({
   stations: {
     url: '/Station',
-    options: jsonOptions
-  }
+    options: jsonOptions,
+  },
   // availableSeats: {
   //   url: '/AvailableSeatStatusList/:stationId',
   //   options: jsonOptions,
@@ -42,7 +42,7 @@ export default reduxApi({
             showCloseButton: true,
             onClose: () => {
               isModalOpen = false;
-            }
+            },
           });
         }
       } else if (err.status === 500 || err) {
@@ -54,7 +54,7 @@ export default reduxApi({
             showCloseButton: true,
             onClose: () => {
               isModalOpen = false;
-            }
+            },
           });
         }
       }
@@ -67,7 +67,7 @@ export default reduxApi({
   })
   .use('options', (url, params, getState) => {
     const headers = {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     };
     return { headers };
   })

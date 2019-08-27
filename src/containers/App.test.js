@@ -1,31 +1,28 @@
 import React from 'react';
-import { configure, shallow } from 'enzyme';
+import { configure, shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import thunk from 'redux-thunk';
 import configureStore from 'redux-mock-store';
 import App from './App';
 
-const faker = require('faker');
+// const faker = require('faker');
 // const puppeteer = require('puppeteer');
 
 configure({ adapter: new Adapter() });
 
-describe('Shallow', () => {
-  const mockStore = configureStore();
+describe('mount', () => {
+  const middleWares = [thunk];
+  const mockStore = configureStore(middleWares);
   const initialState = {};
   let store, wrapper;
 
   beforeEach(() => {
     store = mockStore(initialState);
-    wrapper = shallow(<App store={store} />);
+    wrapper = mount(<App store={store} />);
   });
 
   it('renders without crashing', () => {
     expect(wrapper.length).toEqual(1);
-  });
-
-  it('renders welcome message', () => {
-    const welcome = <h2>高鐵查詢</h2>;
-    expect(wrapper.contains(welcome)).toBe(true);
   });
 });
 
