@@ -12,6 +12,7 @@ import API from '../middleware/API';
 import reduxAPI from '../middleware/reduxAPI';
 
 import '../styles/App.scss';
+import { validateData } from '../util/util';
 
 class App extends Component {
   constructor(props) {
@@ -20,12 +21,12 @@ class App extends Component {
       isLoading: true,
       isSubmit: false,
       date: moment().format('YYYY-MM-DD'),
-      originStation: '1030',
-      destinationStation: '1060',
+      originStation: '',
+      destinationStation: '',
       availableSeats: [],
       updateTime: '',
       times: [],
-      prices: []
+      prices: [],
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.submit = this.submit.bind(this);
@@ -34,86 +35,81 @@ class App extends Component {
       this.setState(
         {
           originStation: destinationStation,
-          destinationStation: originStation
+          destinationStation: originStation,
         },
-        this.submit
+        this.submit,
       );
     };
   }
 
   componentDidMount() {
-    this.submit();
+    const { dispatch } = this.props;
+    dispatch(
+      reduxAPI.actions.stations.sync(() => {
+        const { stations } = this.props;
+        const validatedStations = validateData(stations);
+        if (validatedStations) {
+          this.setState(
+            {
+              originStation: validatedStations[4].stationID,
+              destinationStation: validatedStations[10].stationID,
+            },
+            () => {
+              this.submit();
+            },
+          );
+        }
+      }),
+    );
   }
 
   handleInputChange(event) {
+    const m = this;
     const {
-      target: { type, name, checked, value }
+      target: { type, name, checked, value },
     } = event;
     const { originStation, destinationStation } = this.state;
     event.preventDefault();
-    if (name === 'originStation' || name === 'destinationStation') {
-      if (name === 'originStation' && value !== destinationStation) {
-        this.setState(
-          {
-            isSubmit: false,
-            [name]: type === 'checkbox' ? checked : value
-          },
-          () => {
-            this.submit();
-          }
-        );
-      } else if (name === 'destinationStation' && value !== originStation) {
-        this.setState(
-          {
-            isSubmit: false,
-            [name]: type === 'checkbox' ? checked : value
-          },
-          () => {
-            this.submit();
-          }
-        );
-      } else {
-        swal({
-          type: 'info',
-          timer: 1000,
-          title: '起點和終點需不同',
-          showConfirmButton: false,
-          showCloseButton: true
-        });
-      }
-    } else if (value) {
+    if (
+      (name !== 'originStation' && name !== 'destinationStation') ||
+      (name === 'originStation' && value !== destinationStation) ||
+      (name === 'destinationStation' && value !== originStation)
+    ) {
       this.setState(
         {
           isSubmit: false,
-          [name]: type === 'checkbox' ? checked : value
+          [name]: type === 'checkbox' ? checked : value,
         },
-        () => {
-          this.submit();
-        }
+        m.submit,
       );
+    } else {
+      swal({
+        type: 'info',
+        timer: 1000,
+        title: '起點和終點需不同',
+        showConfirmButton: false,
+        showCloseButton: true,
+      });
     }
   }
 
   submit() {
     const { originStation, destinationStation, date } = this.state;
-    const { dispatch } = this.props;
     this.setState(
       {
         isLoading: true,
-        isSubmit: true
+        isSubmit: true,
       },
       () => {
         axios
           .all([
-            API.get('/Station'),
             API.get(`/AvailableSeatStatusList/${originStation}`),
             API.get(`/ODFare/${originStation}/to/${destinationStation}`),
-            API.get(`/DailyTimetable/OD/${originStation}/to/${destinationStation}/${date}`)
+            API.get(`/DailyTimetable/OD/${originStation}/to/${destinationStation}/${date}`),
           ])
           .then(
-            axios.spread((stations, availableSeats, prices, times) => {
+            axios.spread((availableSeats, prices, times) => {
               let finalState = {};
-              // console.log(stations);
               if (
                 availableSeats &&
                 availableSeats[0] &&
@@ -122,25 +118,15 @@ class App extends Component {
               ) {
                 finalState = JSON.parse(JSON.stringify(availableSeats[0]));
               }
-              if (times) {
-                finalState = {
-                  ...finalState,
-                  times,
-                  isLoading: false
-                };
-              }
-              if (prices) {
-                finalState = {
-                  ...finalState,
-                  prices,
-                  isLoading: false
-                };
-              }
-              this.setState(finalState);
-            })
+              this.setState({
+                ...finalState,
+                prices: prices || [],
+                times: times || [],
+                isLoading: false,
+              });
+            }),
           );
-        dispatch(reduxAPI.actions.stations.sync());
-      }
+      },
     );
   }
 
@@ -155,25 +141,25 @@ class App extends Component {
       updateTime,
       isLoading,
       isSubmit,
-      availableSeats
+      availableSeats,
     } = this.state;
-    const blockControl = (
-      <PickerDateAndPlace
-        date={date}
-        stations={stations}
-        originStation={originStation}
-        destinationStation={destinationStation}
-        handleInputChange={this.handleInputChange}
-        swapLocation={this.swapLocation}
-      />
-    );
+
     return (
       <>
         <div className="App container">
-          <div className="sticky desktop--hide">{blockControl}</div>
+          <div className="sticky desktop--hide">
+            <PickerDateAndPlace
+              date={date}
+              stations={validateData(stations) || []}
+              originStation={originStation}
+              destinationStation={destinationStation}
+              handleInputChange={this.handleInputChange}
+              swapLocation={this.swapLocation}
+            />
+          </div>
           <div className="row content--mobile">
             <div className="col-md-8 col-sm-7 col-xs-12">
-              <h2>高鐵查詢</h2>
+              <h2 id="title">高鐵查詢</h2>
               <RailTable
                 isLoading={isLoading}
                 isSubmit={isSubmit}
@@ -184,7 +170,16 @@ class App extends Component {
                 availableSeats={availableSeats}
               />
             </div>
-            <div className="col-md-4 col-sm-5 col-xs-12 sticky mobile--hide">{blockControl}</div>
+            <div className="col-md-4 col-sm-5 col-xs-12 sticky mobile--hide">
+              <PickerDateAndPlace
+                date={date}
+                stations={validateData(stations) || []}
+                originStation={originStation}
+                destinationStation={destinationStation}
+                handleInputChange={this.handleInputChange}
+                swapLocation={this.swapLocation}
+              />
+            </div>
           </div>
         </div>
         <div className="container-fluid">
@@ -202,11 +197,11 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  stations: state.stations
+  stations: state.stations,
 });
 
 App.propTypes = {
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
   // stations: PropTypes.array,
 };
 

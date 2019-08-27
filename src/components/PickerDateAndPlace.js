@@ -3,30 +3,27 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import 'date-input-polyfill';
 
-import { validateData } from '../util';
-
 function PickerDateAndPlace({
   date,
   stations,
   originStation,
   destinationStation,
   handleInputChange,
-  swapLocation
+  swapLocation,
 }) {
-  const validatedStations = validateData(stations);
-  let optionOriginStations = [];
-  let optionDestinationStations = [];
-  if (validatedStations) {
-    validatedStations.forEach(station => {
+  const optionOriginStations = [];
+  const optionDestinationStations = [];
+  if (stations) {
+    stations.forEach(station => {
       optionOriginStations.push(
         <option key={`originStation${station.stationID}`} value={station.stationID}>
           {station.stationName.zhTw}
-        </option>
+        </option>,
       );
       optionDestinationStations.push(
         <option key={`destinationStation${station.stationID}`} value={station.stationID}>
           {station.stationName.zhTw}
-        </option>
+        </option>,
       );
     });
   }
@@ -58,7 +55,7 @@ function PickerDateAndPlace({
         </select>
       </div>
       <div className="form-group">
-        <button type="button" className="control__swap" onClick={swapLocation}>
+        <button id="swapLocation" type="button" className="control__swap" onClick={swapLocation}>
           <span className="glyphicon glyphicon-sort" />
         </button>
       </div>
@@ -77,6 +74,14 @@ function PickerDateAndPlace({
   );
 }
 
-PickerDateAndPlace.propTypes = {};
+PickerDateAndPlace.propTypes = {
+  originStation: PropTypes.string,
+  destinationStation: PropTypes.string,
+};
+
+PickerDateAndPlace.defaultProps = {
+  originStation: '1030',
+  destinationStation: '1060',
+};
 
 export default PickerDateAndPlace;
