@@ -108,15 +108,10 @@ class App extends Component {
             API.get(`/DailyTimetable/OD/${originStation}/to/${destinationStation}/${date}`),
           ])
           .then(
-            axios.spread((availableSeats, prices, times) => {
+            axios.spread((res, prices, times) => {
               let finalState = {};
-              if (
-                availableSeats &&
-                availableSeats[0] &&
-                availableSeats[0].availableSeats &&
-                availableSeats[0].availableSeats.length
-              ) {
-                finalState = JSON.parse(JSON.stringify(availableSeats[0]));
+              if (res.availableSeats && res.availableSeats.length) {
+                finalState = JSON.parse(JSON.stringify(res));
               }
               this.setState({
                 ...finalState,
