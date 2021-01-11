@@ -1,0 +1,15 @@
+{
+  "short_name": "台灣高鐵",
+  "name": "台灣高鐵",
+  "icons": [
+    {
+      "src": "hsr.png",
+      "sizes": "512x512 144x144 64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ],
+  "start_url": "/thsr-app",
+  "display": "standalone",
+  "theme_color": "#DD5500",
+  "background_color": "#ffffff"
+}
