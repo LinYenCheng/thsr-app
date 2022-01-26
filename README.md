@@ -1,5 +1,5 @@
 專案使用 [Create React App](https://github.com/facebook/create-react-app)
-串接的政府的[資料來源](https://ptx.transportdata.tw/MOTC/Swagger/#/THSRApi)
+串接的政府的[資料來源](https://ptx.transportdata.tw/MOTC/)
 
 ## Available Scripts
 
