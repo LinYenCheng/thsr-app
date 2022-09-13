@@ -90,7 +90,7 @@ class RailTable extends Component {
         active: sortActiveMode === 0,
       });
 
-      blockTableRows = finalData.map(availableSeat => {
+      blockTableRows = finalData.map((availableSeat) => {
         const {
           departureTime,
           stationName,
@@ -102,11 +102,11 @@ class RailTable extends Component {
         let price;
         if (prices) {
           if (hasStandardSeat) {
-            price = prices[0].fares.map(fare => `${fare.ticketType}:${fare.price}`).toString();
+            price = prices[0].fares.map((fare) => `${fare.ticketType}:${fare.price}`).toString();
           } else {
             price = prices[0].fares
-              .filter(fare => fare.ticketType !== '標準')
-              .map(fare => `${fare.ticketType}:${fare.price}`)
+              .filter((fare) => fare.ticketType !== '標準')
+              .map((fare) => `${fare.ticketType}:${fare.price}`)
               .toString();
           }
         }

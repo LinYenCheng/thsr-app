@@ -25,6 +25,7 @@
     "test:coverage": "npm test -- --coverage",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
+    "format": "prettier --write \"src/**/*.{js,scss}\"",
     "deploy": "gh-pages -b gh-pages -d build"
   },
   "eslintConfig": {

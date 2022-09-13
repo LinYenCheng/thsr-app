@@ -42,7 +42,7 @@ class App extends Component {
 
   componentDidMount() {
     const m = this;
-    API.get(`/Station`).then(data => {
+    API.get(`/Station`).then((data) => {
       this.setState(
         {
           stations: data,

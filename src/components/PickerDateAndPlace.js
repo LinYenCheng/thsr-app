@@ -14,7 +14,7 @@ function PickerDateAndPlace({
   const optionOriginStations = [];
   const optionDestinationStations = [];
   if (stations) {
-    stations.forEach(station => {
+    stations.forEach((station) => {
       optionOriginStations.push(
         <option key={`originStation${station.stationID}`} value={station.stationID}>
           {station.stationName.zhTw}
@@ -36,9 +36,7 @@ function PickerDateAndPlace({
           id="date"
           type="date"
           min={moment().format('YYYY-MM-DD')}
-          max={moment()
-            .add(8, 'month')
-            .format('YYYY-MM-DD')}
+          max={moment().add(8, 'month').format('YYYY-MM-DD')}
           value={date}
           onChange={handleInputChange}
         />

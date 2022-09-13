@@ -7,7 +7,7 @@ function minutesOfDay(m) {
 function getItemsWithDepartureTimeAfterNow(data) {
   const { date, finalData: originalItems, departureTimeDSC, active } = data;
   const finalItems = originalItems.filter(
-    item => moment(`${date} ${item.originStopTime.departureTime}`).unix() > moment().unix(),
+    (item) => moment(`${date} ${item.originStopTime.departureTime}`).unix() > moment().unix(),
   );
   if (active) {
     if (departureTimeDSC) {
@@ -27,10 +27,10 @@ function getItemsWithDepartureTimeAfterNow(data) {
 }
 
 function getItemsWithAvailableSeats(destinationStation, originalItems) {
-  return originalItems.filter(item => {
+  return originalItems.filter((item) => {
     const { stopStations } = item;
     const indexItem = stopStations.findIndex(
-      stopStation => stopStation.stationID === destinationStation,
+      (stopStation) => stopStation.stationID === destinationStation,
     );
     if (indexItem >= 0) {
       item.hasStandardSeat = stopStations[indexItem].standardSeatStatus !== 'Full';
@@ -44,7 +44,7 @@ function getItemsWithAvailableSeats(destinationStation, originalItems) {
 }
 
 function getDestinationInfo(trainNo, times) {
-  const nowInfo = times.filter(item => item.dailyTrainInfo.trainNo === trainNo);
+  const nowInfo = times.filter((item) => item.dailyTrainInfo.trainNo === trainNo);
   if (nowInfo[0]) {
     return nowInfo[0].destinationStopTime;
   }
@@ -65,7 +65,7 @@ function getTravelTime(date, start, end) {
 function getItemsWithTravelTimes(data) {
   const { date, times, travelTimeDSC, active } = data;
   const finalItems = times
-    .map(time => {
+    .map((time) => {
       const { originStopTime, destinationStopTime } = time;
       let arrivalTime;
       let destinationStationName;
@@ -91,7 +91,7 @@ function getItemsWithTravelTimes(data) {
         ...time,
       };
     })
-    .filter(item => item.arrivalTime);
+    .filter((item) => item.arrivalTime);
   if (active) {
     if (travelTimeDSC) {
       return finalItems.sort(
