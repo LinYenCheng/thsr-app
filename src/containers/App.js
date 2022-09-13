@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { connect } from 'react-redux';
 import swal from 'sweetalert2';
 import moment from 'moment';
 
@@ -9,10 +8,8 @@ import PickerDateAndPlace from '../components/PickerDateAndPlace';
 import RailTable from '../components/RailTable';
 
 import API from '../middleware/API';
-import reduxAPI from '../middleware/reduxAPI';
 
 import '../styles/App.scss';
-import { validateData } from '../util/util';
 
 class App extends Component {
   constructor(props) {
@@ -21,6 +18,7 @@ class App extends Component {
       isLoading: true,
       isSubmit: false,
       date: moment().format('YYYY-MM-DD'),
+      stations: [],
       originStation: '',
       destinationStation: '',
       availableSeats: [],
@@ -43,24 +41,19 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(
-      reduxAPI.actions.stations.sync(() => {
-        const { stations } = this.props;
-        const validatedStations = validateData(stations);
-        if (validatedStations) {
-          this.setState(
-            {
-              originStation: validatedStations[4].stationID,
-              destinationStation: validatedStations[10].stationID,
-            },
-            () => {
-              this.submit();
-            },
-          );
-        }
-      }),
-    );
+    const m = this;
+    API.get(`/Station`).then(data => {
+      this.setState(
+        {
+          stations: data,
+          originStation: data[4].stationID,
+          destinationStation: data[10].stationID,
+        },
+        () => {
+          m.submit();
+        },
+      );
+    });
   }
 
   handleInputChange(event) {
@@ -126,7 +119,7 @@ class App extends Component {
   }
 
   render() {
-    const { stations } = this.props;
+    const { stations } = this.state;
     const {
       date,
       times,
@@ -145,7 +138,7 @@ class App extends Component {
           <div className="sticky desktop--hide">
             <PickerDateAndPlace
               date={date}
-              stations={validateData(stations) || []}
+              stations={stations}
               originStation={originStation}
               destinationStation={destinationStation}
               handleInputChange={this.handleInputChange}
@@ -168,7 +161,7 @@ class App extends Component {
             <div className="col-md-4 col-sm-5 col-xs-12 sticky mobile--hide">
               <PickerDateAndPlace
                 date={date}
-                stations={validateData(stations) || []}
+                stations={stations}
                 originStation={originStation}
                 destinationStation={destinationStation}
                 handleInputChange={this.handleInputChange}
@@ -191,13 +184,8 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  stations: state.stations,
-});
-
 App.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   // stations: PropTypes.array,
 };
 
-export default connect(mapStateToProps)(App);
+export default App;

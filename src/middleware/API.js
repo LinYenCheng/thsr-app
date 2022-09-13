@@ -29,7 +29,7 @@ function parseBody(response) {
     if (process.env.NODE_ENV === 'development') {
       console.log({
         url: response.config.url,
-        result: response.data
+        result: response.data,
       });
     }
     return response.data;
@@ -46,7 +46,7 @@ const API = axios.create({
   responseType: 'json',
   paramsSerializer(params) {
     return qs.stringify(params, { indices: false });
-  }
+  },
 });
 
 // API.interceptors.request.use(
@@ -79,7 +79,7 @@ API.interceptors.response.use(
             showCloseButton: true,
             onClose: () => {
               isModalOpen = false;
-            }
+            },
           });
         }
       } else if (error.response.status === 500) {
@@ -91,14 +91,14 @@ API.interceptors.response.use(
             showCloseButton: true,
             onClose: () => {
               isModalOpen = false;
-            }
+            },
           });
         }
       }
       return parseError(error.response.data);
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 export default API;

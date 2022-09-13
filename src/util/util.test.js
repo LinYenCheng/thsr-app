@@ -1,5 +1,4 @@
 import {
-  validateData,
   getItemsWithDepartureTimeAfterNow,
   getItemsWithAvailableSeats,
   getDestinationInfo,
@@ -205,11 +204,6 @@ const mockTimes = [
 ];
 
 describe('util', () => {
-  it('get validated data', () => {
-    expect(validateData({ data: { status: 0 } })).toBe(0);
-    expect(validateData({ data: { status: 1, result: 123 } })).toBe(123);
-  });
-
   it('get items with departure time after now', () => {
     mockItems.active = true;
     mockItems.departureTimeDSC = true;

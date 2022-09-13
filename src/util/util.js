@@ -1,12 +1,5 @@
 import moment from 'moment';
 
-function validateData(reduxStatus) {
-  if (reduxStatus && reduxStatus.data.status && reduxStatus.data.result) {
-    return reduxStatus.data.result;
-  }
-  return 0;
-}
-
 function minutesOfDay(m) {
   return m.minutes() + m.hours() * 60;
 }
@@ -14,20 +7,20 @@ function minutesOfDay(m) {
 function getItemsWithDepartureTimeAfterNow(data) {
   const { date, finalData: originalItems, departureTimeDSC, active } = data;
   const finalItems = originalItems.filter(
-    item => moment(`${date} ${item.departureTime}`).unix() > moment().unix(),
+    item => moment(`${date} ${item.originStopTime.departureTime}`).unix() > moment().unix(),
   );
   if (active) {
     if (departureTimeDSC) {
       return finalItems.sort(
         (a, b) =>
-          minutesOfDay(moment(`${date} ${a.departureTime}`)) -
-          minutesOfDay(moment(`${date} ${b.departureTime}`)),
+          minutesOfDay(moment(`${date} ${a.originStopTime.departureTime}`)) -
+          minutesOfDay(moment(`${date} ${b.originStopTime.departureTime}`)),
       );
     }
     return finalItems.sort(
       (b, a) =>
-        minutesOfDay(moment(`${date} ${a.departureTime}`)) -
-        minutesOfDay(moment(`${date} ${b.departureTime}`)),
+        minutesOfDay(moment(`${date} ${a.originStopTime.departureTime}`)) -
+        minutesOfDay(moment(`${date} ${b.originStopTime.departureTime}`)),
     );
   }
   return finalItems;
@@ -70,30 +63,32 @@ function getTravelTime(date, start, end) {
 }
 
 function getItemsWithTravelTimes(data) {
-  const { date, times, finalData: originalItems, travelTimeDSC, active } = data;
-  const finalItems = originalItems
-    .map(availableSeat => {
-      const { departureTime, trainNo } = availableSeat;
-      let destinationInfo = {};
+  const { date, times, travelTimeDSC, active } = data;
+  const finalItems = times
+    .map(time => {
+      const { originStopTime, destinationStopTime } = time;
       let arrivalTime;
       let destinationStationName;
       let travelTime;
       if (times && times.length) {
-        destinationInfo = getDestinationInfo(trainNo, times);
-        if (destinationInfo) {
-          arrivalTime = destinationInfo.arrivalTime;
-          destinationStationName = destinationInfo.stationName.zhTw;
-        }
+        arrivalTime = destinationStopTime.arrivalTime;
+        destinationStationName = destinationStopTime.stationName.zhTw;
       }
 
-      if (departureTime && arrivalTime) {
-        travelTime = getTravelTime(date, departureTime, arrivalTime);
+      if (originStopTime.departureTime && destinationStopTime.arrivalTime) {
+        travelTime = getTravelTime(
+          date,
+          originStopTime.departureTime,
+          destinationStopTime.arrivalTime,
+        );
       }
       return {
-        ...availableSeat,
+        stationName: originStopTime.stationName.zhTw,
         destinationStationName,
         arrivalTime,
+        departureTime: originStopTime.departureTime,
         travelTime,
+        ...time,
       };
     })
     .filter(item => item.arrivalTime);
@@ -115,7 +110,6 @@ function getItemsWithTravelTimes(data) {
 }
 
 export {
-  validateData,
   getItemsWithDepartureTimeAfterNow,
   getItemsWithAvailableSeats,
   getDestinationInfo,

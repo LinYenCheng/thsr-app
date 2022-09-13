@@ -70,24 +70,24 @@ class RailTable extends Component {
       );
     }
 
-    if (availableSeats && availableSeats.length && !isLoading && isSubmit) {
+    if (!isLoading && isSubmit) {
       // 先過濾資料，升序降序
-      let finalData = availableSeats;
+      let finalData = [...times];
+
+      // finalData = getItemsWithAvailableSeats(destinationStation, finalData);
+      // console.log(destinationStation, finalData);
+      finalData = getItemsWithTravelTimes({
+        date,
+        times,
+        travelTimeDSC,
+        active: sortActiveMode === 1,
+      });
+
       finalData = getItemsWithDepartureTimeAfterNow({
         date,
         finalData,
         departureTimeDSC,
         active: sortActiveMode === 0,
-      });
-      // console.log(finalData);
-      finalData = getItemsWithAvailableSeats(destinationStation, finalData);
-      // console.log(destinationStation, finalData);
-      finalData = getItemsWithTravelTimes({
-        date,
-        times,
-        finalData,
-        travelTimeDSC,
-        active: sortActiveMode === 1,
       });
 
       blockTableRows = finalData.map(availableSeat => {
@@ -112,11 +112,11 @@ class RailTable extends Component {
         }
         return (
           <tr key={departureTime}>
-            <td>{`${stationName.zhTw}|${destinationStationName}`}</td>
+            <td>{`${stationName}|${destinationStationName}`}</td>
             <td>{departureTime}</td>
             <td>{arrivalTime}</td>
             <td>{travelTime}</td>
-            <td>{price}</td>
+            {/* <td>{price}</td> */}
           </tr>
         );
       });
@@ -136,7 +136,7 @@ class RailTable extends Component {
                 <span>總時間</span>
                 <span className={travelTimeDSC ? 'arrow arrow--dsc' : 'arrow arrow--asc'} />
               </th>
-              <th>票價</th>
+              {/* <th>票價</th> */}
             </tr>
           </thead>
           <tbody>{blockTableRows}</tbody>
