@@ -1,22 +1,13 @@
 {
   "files": {
-    "main.css": "/thsr-app/static/css/main.7c4b1a28.chunk.css",
-    "main.js": "/thsr-app/static/js/main.247ab921.chunk.js",
-    "main.js.map": "/thsr-app/static/js/main.247ab921.chunk.js.map",
-    "runtime-main.js": "/thsr-app/static/js/runtime-main.4af53cd8.js",
-    "runtime-main.js.map": "/thsr-app/static/js/runtime-main.4af53cd8.js.map",
-    "static/js/2.2c81a445.chunk.js": "/thsr-app/static/js/2.2c81a445.chunk.js",
-    "static/js/2.2c81a445.chunk.js.map": "/thsr-app/static/js/2.2c81a445.chunk.js.map",
+    "main.css": "/thsr-app/static/css/main.bc767f9a.css",
+    "main.js": "/thsr-app/static/js/main.a88e1375.js",
     "index.html": "/thsr-app/index.html",
-    "precache-manifest.f99cb8a99bf6b41dfa2976ff2c9ffd94.js": "/thsr-app/precache-manifest.f99cb8a99bf6b41dfa2976ff2c9ffd94.js",
-    "service-worker.js": "/thsr-app/service-worker.js",
-    "static/css/main.7c4b1a28.chunk.css.map": "/thsr-app/static/css/main.7c4b1a28.chunk.css.map",
-    "static/js/2.2c81a445.chunk.js.LICENSE.txt": "/thsr-app/static/js/2.2c81a445.chunk.js.LICENSE.txt"
+    "main.bc767f9a.css.map": "/thsr-app/static/css/main.bc767f9a.css.map",
+    "main.a88e1375.js.map": "/thsr-app/static/js/main.a88e1375.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.4af53cd8.js",
-    "static/js/2.2c81a445.chunk.js",
-    "static/css/main.7c4b1a28.chunk.css",
-    "static/js/main.247ab921.chunk.js"
+    "static/css/main.bc767f9a.css",
+    "static/js/main.a88e1375.js"
   ]
 }
