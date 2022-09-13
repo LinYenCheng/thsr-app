@@ -24,7 +24,7 @@
     "test:ci": "CI=true react-scripts test --env=jsdom",
     "test:coverage": "npm test -- --coverage",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build",
+    "predeploy": "CI=false npm run build",
     "format": "prettier --write \"src/**/*.{js,scss}\"",
     "deploy": "gh-pages -b gh-pages -d build"
   },
