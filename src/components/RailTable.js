@@ -92,6 +92,7 @@ class RailTable extends Component {
 
       blockTableRows = finalData.map((availableSeat) => {
         const {
+          dailyTrainInfo,
           departureTime,
           stationName,
           destinationStationName,
@@ -99,6 +100,7 @@ class RailTable extends Component {
           hasStandardSeat,
           travelTime,
         } = availableSeat;
+
         let price;
         if (prices) {
           if (hasStandardSeat) {
@@ -113,6 +115,7 @@ class RailTable extends Component {
         return (
           <tr key={departureTime}>
             <td>{`${stationName}|${destinationStationName}`}</td>
+            <td>{dailyTrainInfo.trainNo}</td>
             <td>{departureTime}</td>
             <td>{arrivalTime}</td>
             <td>{travelTime}</td>
@@ -127,6 +130,7 @@ class RailTable extends Component {
           <thead>
             <tr>
               <th>起|終點</th>
+              <th>車次</th>
               <th id="departureTime" className="pointer" onClick={this.toggleSortDepartureTime}>
                 <span>發車</span>
                 <span className={departureTimeDSC ? 'arrow arrow--asc' : 'arrow arrow--dsc'} />
