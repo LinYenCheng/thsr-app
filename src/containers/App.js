@@ -19,8 +19,8 @@ class App extends Component {
       isSubmit: false,
       date: moment().format('YYYY-MM-DD'),
       stations: [],
-      originStation: '',
-      destinationStation: '',
+      originStation: localStorage.getItem('originStation') || '',
+      destinationStation: localStorage.getItem('destinationStation') || '',
       availableSeats: [],
       updateTime: '',
       times: [],
@@ -46,8 +46,8 @@ class App extends Component {
       this.setState(
         {
           stations: data,
-          originStation: data[4].stationID,
-          destinationStation: data[10].stationID,
+          originStation: localStorage.getItem('originStation') || data[4].stationID,
+          destinationStation: localStorage.getItem('destinationStation') || data[10].stationID,
         },
         () => {
           m.submit();
@@ -88,6 +88,8 @@ class App extends Component {
 
   submit() {
     const { originStation, destinationStation, date } = this.state;
+    localStorage.setItem('originStation', originStation);
+    localStorage.setItem('destinationStation', destinationStation);
     this.setState(
       {
         isLoading: true,
