@@ -98,6 +98,7 @@ class App extends Component {
             this.setState({
               times: times || [],
               isLoading: false,
+              updateTime: times[0]?.updateTime,
             });
           },
         );
