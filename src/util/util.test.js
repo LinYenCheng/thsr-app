@@ -1,6 +1,5 @@
 import {
   getItemsWithDepartureTimeAfterNow,
-  getItemsWithAvailableSeats,
   getDestinationInfo,
   getItemsWithTravelTimes,
 } from './util';
@@ -212,15 +211,6 @@ describe('util', () => {
     expect(getItemsWithDepartureTimeAfterNow(mockItems)).toEqual([]);
     mockItems.active = false;
     expect(getItemsWithDepartureTimeAfterNow(mockItems)).toEqual([]);
-  });
-
-  it('get items with available seats', () => {
-    expect(getItemsWithAvailableSeats('1040', mockResultItems)).toEqual(mockResultItems);
-    mockResultItems[0].stopStations[5].standardSeatStatus = 'Full';
-    mockResultItems[0].stopStations[5].businessSeatStatus = 'Full';
-    expect(getItemsWithAvailableSeats('1040', mockResultItems)).toEqual([]);
-    mockResultItems[0].stopStations[5].stationID = '0';
-    expect(getItemsWithAvailableSeats('1040', mockResultItems)).toEqual(mockResultItems);
   });
 
   it('get destination information', () => {

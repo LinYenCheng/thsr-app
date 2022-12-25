@@ -26,23 +26,6 @@ function getItemsWithDepartureTimeAfterNow(data) {
   return finalItems;
 }
 
-function getItemsWithAvailableSeats(destinationStation, originalItems) {
-  return originalItems.filter((item) => {
-    const { stopStations } = item;
-    const indexItem = stopStations.findIndex(
-      (stopStation) => stopStation.stationID === destinationStation,
-    );
-    if (indexItem >= 0) {
-      item.hasStandardSeat = stopStations[indexItem].standardSeatStatus !== 'Full';
-      return (
-        stopStations[indexItem].standardSeatStatus !== 'Full' ||
-        stopStations[indexItem].businessSeatStatus !== 'Full'
-      );
-    }
-    return [];
-  });
-}
-
 function getDestinationInfo(trainNo, times) {
   const nowInfo = times.filter((item) => item.dailyTrainInfo.trainNo === trainNo);
   if (nowInfo[0]) {
@@ -111,7 +94,6 @@ function getItemsWithTravelTimes(data) {
 
 export {
   getItemsWithDepartureTimeAfterNow,
-  getItemsWithAvailableSeats,
   getDestinationInfo,
   getTravelTime,
   getItemsWithTravelTimes,

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import swal from 'sweetalert2';
 import moment from 'moment';
 
@@ -21,10 +20,8 @@ class App extends Component {
       stations: [],
       originStation: localStorage.getItem('originStation') || '',
       destinationStation: localStorage.getItem('destinationStation') || '',
-      availableSeats: [],
       updateTime: '',
       times: [],
-      prices: [],
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.submit = this.submit.bind(this);
@@ -96,43 +93,22 @@ class App extends Component {
         isSubmit: true,
       },
       () => {
-        axios
-          .all([
-            API.get(`/AvailableSeatStatusList/${originStation}`),
-            API.get(`/ODFare/${originStation}/to/${destinationStation}`),
-            API.get(`/DailyTimetable/OD/${originStation}/to/${destinationStation}/${date}`),
-          ])
-          .then(
-            axios.spread((res, prices, times) => {
-              let finalState = {};
-              if (res.availableSeats && res.availableSeats.length) {
-                finalState = JSON.parse(JSON.stringify(res));
-              }
-              this.setState({
-                ...finalState,
-                prices: prices || [],
-                times: times || [],
-                isLoading: false,
-              });
-            }),
-          );
+        API.get(`/DailyTimetable/OD/${originStation}/to/${destinationStation}/${date}`).then(
+          (times) => {
+            this.setState({
+              times: times || [],
+              isLoading: false,
+            });
+          },
+        );
       },
     );
   }
 
   render() {
     const { stations } = this.state;
-    const {
-      date,
-      times,
-      prices,
-      originStation,
-      destinationStation,
-      updateTime,
-      isLoading,
-      isSubmit,
-      availableSeats,
-    } = this.state;
+    const { date, times, originStation, destinationStation, updateTime, isLoading, isSubmit } =
+      this.state;
 
     return (
       <>
@@ -155,9 +131,7 @@ class App extends Component {
                 isSubmit={isSubmit}
                 date={date}
                 times={times}
-                prices={prices}
                 destinationStation={destinationStation}
-                availableSeats={availableSeats}
               />
             </div>
             <div className="col-md-4 col-sm-5 col-xs-12 sticky mobile--hide">
