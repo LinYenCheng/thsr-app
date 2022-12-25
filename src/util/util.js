@@ -5,25 +5,49 @@ function minutesOfDay(m) {
 }
 
 function getItemsWithDepartureTimeAfterNow(data) {
-  const { date, finalData: originalItems, departureTimeDSC, active } = data;
+  const { date, finalData: originalItems } = data;
   const finalItems = originalItems.filter(
     (item) => moment(`${date} ${item.originStopTime.departureTime}`).unix() > moment().unix(),
   );
+  return finalItems;
+}
+
+function sortDepartureTime(data) {
+  const { date, finalData: originalItems, departureTimeDSC, active } = data;
   if (active) {
     if (departureTimeDSC) {
-      return finalItems.sort(
+      return originalItems.sort(
         (a, b) =>
           minutesOfDay(moment(`${date} ${a.originStopTime.departureTime}`)) -
           minutesOfDay(moment(`${date} ${b.originStopTime.departureTime}`)),
       );
     }
-    return finalItems.sort(
+    return originalItems.sort(
       (b, a) =>
         minutesOfDay(moment(`${date} ${a.originStopTime.departureTime}`)) -
         minutesOfDay(moment(`${date} ${b.originStopTime.departureTime}`)),
     );
   }
-  return finalItems;
+  return originalItems;
+}
+
+function sortArrivalTime(data) {
+  const { date, finalData: originalItems, arrivalTimeDSC, active } = data;
+  if (active) {
+    if (arrivalTimeDSC) {
+      return originalItems.sort(
+        (b, a) =>
+          minutesOfDay(moment(`${date} ${a.destinationStopTime.arrivalTime}`)) -
+          minutesOfDay(moment(`${date} ${b.destinationStopTime.arrivalTime}`)),
+      );
+    }
+    return originalItems.sort(
+      (a, b) =>
+        minutesOfDay(moment(`${date} ${a.destinationStopTime.arrivalTime}`)) -
+        minutesOfDay(moment(`${date} ${b.destinationStopTime.arrivalTime}`)),
+    );
+  }
+  return originalItems;
 }
 
 function getDestinationInfo(trainNo, times) {
@@ -46,14 +70,14 @@ function getTravelTime(date, start, end) {
 }
 
 function getItemsWithTravelTimes(data) {
-  const { date, times, travelTimeDSC, active } = data;
-  const finalItems = times
+  const { date, finalData } = data;
+  const finalItems = finalData
     .map((time) => {
       const { originStopTime, destinationStopTime } = time;
       let arrivalTime;
       let destinationStationName;
       let travelTime;
-      if (times && times.length) {
+      if (finalData && finalData.length) {
         arrivalTime = destinationStopTime.arrivalTime;
         destinationStationName = destinationStopTime.stationName.zhTw;
       }
@@ -75,26 +99,35 @@ function getItemsWithTravelTimes(data) {
       };
     })
     .filter((item) => item.arrivalTime);
+
+  return finalItems;
+}
+
+function sortTravelTime(data) {
+  const { date, finalData, travelTimeDSC, active } = data;
   if (active) {
     if (travelTimeDSC) {
-      return finalItems.sort(
+      return finalData.sort(
         (b, a) =>
           minutesOfDay(moment(`${date} ${a.travelTime}`)) -
           minutesOfDay(moment(`${date} ${b.travelTime}`)),
       );
     }
-    return finalItems.sort(
+    return finalData.sort(
       (a, b) =>
         minutesOfDay(moment(`${date} ${a.travelTime}`)) -
         minutesOfDay(moment(`${date} ${b.travelTime}`)),
     );
   }
-  return finalItems;
+  return finalData;
 }
 
 export {
   getItemsWithDepartureTimeAfterNow,
+  sortDepartureTime,
+  sortArrivalTime,
   getDestinationInfo,
   getTravelTime,
   getItemsWithTravelTimes,
+  sortTravelTime,
 };

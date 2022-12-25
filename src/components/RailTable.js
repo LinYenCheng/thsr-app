@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { getItemsWithDepartureTimeAfterNow, getItemsWithTravelTimes } from '../util/util';
+import {
+  getItemsWithDepartureTimeAfterNow,
+  getItemsWithTravelTimes,
+  sortDepartureTime,
+  sortArrivalTime,
+  sortTravelTime,
+} from '../util/util';
 
 function RailTable({
   date,
@@ -12,15 +18,20 @@ function RailTable({
 }) {
   const [sortActiveMode, setSortActiveMode] = useState(0);
   const [departureTimeDSC, setDepartureTimeDSC] = useState(true);
-  const [travelTimeDSC, setDravelTimeDSC] = useState(true);
+  const [arrivalTimeDSC, setArrivalTimeDSC] = useState(true);
+  const [travelTimeDSC, setTravelTimeDSC] = useState(true);
 
   const toggleSortDepartureTime = () => {
     setDepartureTimeDSC(!departureTimeDSC);
     setSortActiveMode(0);
   };
   const toggleSortTravelTime = () => {
-    setDravelTimeDSC(!travelTimeDSC);
+    setTravelTimeDSC(!travelTimeDSC);
     setSortActiveMode(1);
+  };
+  const toggleSortArrivalTime = () => {
+    setArrivalTimeDSC(!arrivalTimeDSC);
+    setSortActiveMode(2);
   };
 
   let blockTableRows;
@@ -54,21 +65,35 @@ function RailTable({
     // 先過濾資料，升序降序
     let finalData = [...times];
 
-    // console.log(destinationStation, finalData);
     finalData = getItemsWithTravelTimes({
       date,
-      times,
-      travelTimeDSC,
-      active: sortActiveMode === 1,
+      finalData,
     });
-
-    console.log(finalData);
 
     finalData = getItemsWithDepartureTimeAfterNow({
       date,
       finalData,
+    });
+
+    finalData = sortTravelTime({
+      date,
+      finalData,
+      travelTimeDSC,
+      active: sortActiveMode === 1,
+    });
+
+    finalData = sortDepartureTime({
+      date,
+      finalData,
       departureTimeDSC,
       active: sortActiveMode === 0,
+    });
+
+    finalData = sortArrivalTime({
+      date,
+      finalData,
+      arrivalTimeDSC,
+      active: sortActiveMode === 2,
     });
 
     blockTableRows = finalData.map((row) => {
@@ -103,7 +128,10 @@ function RailTable({
               <span>發車</span>
               <span className={departureTimeDSC ? 'arrow arrow--asc' : 'arrow arrow--dsc'} />
             </th>
-            <th>到達</th>
+            <th id="arrivalTime" className="pointer" onClick={toggleSortArrivalTime}>
+              <span>到達</span>
+              <span className={arrivalTimeDSC ? 'arrow arrow--dsc' : 'arrow arrow--asc'} />
+            </th>
             <th id="travelTime" className="pointer" onClick={toggleSortTravelTime}>
               <span>總時間</span>
               <span className={travelTimeDSC ? 'arrow arrow--dsc' : 'arrow arrow--asc'} />
