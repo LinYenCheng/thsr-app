@@ -114,7 +114,8 @@ class RailTable extends Component {
         }
         return (
           <tr key={departureTime}>
-            <td>{`${stationName}|${destinationStationName}`}</td>
+            <td>{stationName}</td>
+            <td>{destinationStationName}</td>
             <td>{dailyTrainInfo.trainNo}</td>
             <td>{departureTime}</td>
             <td>{arrivalTime}</td>
@@ -129,13 +130,14 @@ class RailTable extends Component {
         <table className="table">
           <thead>
             <tr>
-              <th>起|終點</th>
+              <th>出發</th>
+              <th>抵達</th>
               <th>車次</th>
               <th id="departureTime" className="pointer" onClick={this.toggleSortDepartureTime}>
-                <span>發車</span>
+                <span>發車時間</span>
                 <span className={departureTimeDSC ? 'arrow arrow--asc' : 'arrow arrow--dsc'} />
               </th>
-              <th>到達</th>
+              <th>到達時間</th>
               <th id="travelTime" className="pointer" onClick={this.toggleSortTravelTime}>
                 <span>總時間</span>
                 <span className={travelTimeDSC ? 'arrow arrow--dsc' : 'arrow arrow--asc'} />

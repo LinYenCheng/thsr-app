@@ -12,7 +12,7 @@ body {
   top: 20px;
 
   @media screen and (max-width: 767px) {
-    top: calc(90vh - 260px);
+    top: calc(90vh - 240px);
     z-index: 999;
   }
 }
@@ -122,4 +122,9 @@ select {
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
   border-top: 4px solid #666;
+}
+
+a:focus, a:hover {
+  // color: #23527c;
+  text-decoration: none;
 }

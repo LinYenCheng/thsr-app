@@ -68,6 +68,10 @@ function PickerDateAndPlace({
           {optionDestinationStations}
         </select>
       </div>
+      <a href="https://irs.thsrc.com.tw/IMINT/?locale=tw" target="_blank" rel="noreferrer">
+        <span className="glyphicon glyphicon-link" />
+        <span> 高鐵訂票連結 </span>
+      </a>
     </div>
   );
 }

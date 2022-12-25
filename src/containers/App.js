@@ -149,7 +149,7 @@ class App extends Component {
           </div>
           <div className="row content--mobile">
             <div className="col-md-8 col-sm-7 col-xs-12">
-              <h2 id="title">高鐵班次時刻表快速查詢</h2>
+              <h2 id="title">高鐵時刻表快速查詢</h2>
               <RailTable
                 isLoading={isLoading}
                 isSubmit={isSubmit}
