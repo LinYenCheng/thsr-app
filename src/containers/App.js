@@ -153,6 +153,13 @@ class App extends Component {
               <i className="glyphicon glyphicon-time" />
               <span>{` 更新時間:${moment(updateTime).format('YYYY-MM-DD HH:mm:ss')}`}</span>
               <br />
+              <span>
+                Copyright ©{' '}
+                <a href="https://linyencheng.github.io/" target="_blank" rel="noreferrer">
+                  前端三分鐘
+                </a>{' '}
+                2022
+              </span>
             </div>
           </div>
         </div>
