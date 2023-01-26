@@ -2,10 +2,6 @@ body {
   font-family: PingFang TC, 黑體-繁, Heiti TC, 蘋果儷中黑, Apple LiGothic Medium, 微軟正黑體, Microsoft JhengHei, sans-serif !important;
 }
 
-.active {
-  background-color: #dfdfdf;
-}
-
 .sticky {
   position: -webkit-sticky;
   position: sticky;
@@ -23,24 +19,6 @@ body {
   }
 }
 
-.control {
-  background-color: rgba(#dd5500, 0.7);
-  padding: 25px 15px 15px;
-
-  span {
-    font-size: 20px;
-    color: #fff;
-    font-weight: 700;
-  }
-
-  .control__swap {
-    border: none;
-    background: none;
-    color: #fff;
-    font-size: 20px;
-    margin-left: 75px;
-  }
-}
 
 .table-responsive {
   min-height: calc(100vh - 128px);
@@ -83,24 +61,32 @@ select {
   text-align: center;
 }
 
-.pointer {
-  cursor: pointer;
 
-  &:hover {
-    background-color: #dfdfdf;
+.control {
+  padding: 25px 15px 15px;
+  border-radius: 4px;
+
+  input, select {
+    border-radius: 2px;
+    border: none;
+    outline: none;
   }
 
-  &:focus {
-    background-color: #dfdfdf;
+  span {
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .control__swap {
+    border: none;
+    background: none;
+    font-size: 20px;
+    margin-left: 75px;
   }
 }
 
-.footer {
-  color: #fff;
-  padding-top: 25px;
-  padding-bottom: 25px;
-  background: #4d4d4d;
-  width: 100%;
+.pointer {
+  cursor: pointer;
 }
 
 .arrow {
@@ -115,7 +101,7 @@ select {
 .arrow--asc {
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
-  border-bottom: 4px solid #888;
+  border-bottom: 4px solid #666;
 }
 
 .arrow--dsc {
@@ -125,6 +111,87 @@ select {
 }
 
 a:focus, a:hover {
-  // color: #23527c;
   text-decoration: none;
 }
+
+@media (prefers-color-scheme: light) {
+  .active {
+    background-color: #dfdfdf;
+  }
+  
+  .control {
+    background-color: rgba(#dd5500, 0.8);
+  
+    span {
+      color: #fff;
+    }
+  
+    .control__swap {
+      color: #fff;
+    }
+  }
+
+  .pointer {
+    &:hover {
+      background-color: #dfdfdf;
+    }
+  
+    &:focus {
+      background-color: #dfdfdf;
+    }
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #121212;
+    color: #ffffff;
+  }
+
+  .control {
+    color: #121212;
+  }
+
+  .active {
+    background-color: #dfdfdf;
+  }
+  
+  .control {
+    background-color: rgba(#dd5500, 0.7);
+  
+    span {
+      color: #fff;
+    }
+  
+    .control__swap {
+      color: #fff;
+    }
+  }
+
+  .pointer {
+    &:hover {
+      background-color: #333333;
+    }
+  
+    &:focus {
+      background-color: #333333;
+    }
+  }
+
+  .arrow--asc {
+    border-bottom: 4px solid #efefef;
+  }
+  
+  .arrow--dsc {
+    border-top: 4px solid #efefef;
+  }
+}
+
+.footer {
+  color: #fff;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  background: #333333;
+  width: 100%;
+}
+
