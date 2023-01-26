@@ -30,7 +30,7 @@ function PickerDateAndPlace({
   return (
     <div className="control">
       <div className="form-group">
-        <span>日期:</span>
+        <span className="column-name">日期:</span>
         <input
           name="date"
           id="date"
@@ -41,33 +41,36 @@ function PickerDateAndPlace({
           onChange={handleInputChange}
         />
       </div>
-      <div className="form-group">
-        <span>起點:</span>
-        <select
-          name="originStation"
-          id="originStation"
-          value={originStation}
-          onChange={handleInputChange}
-        >
-          {optionOriginStations}
-        </select>
+
+      <div>
+        <div className="form-group d-inline-block">
+          <span className="column-name">起|終點:</span>
+          <select
+            name="originStation"
+            id="originStation"
+            value={originStation}
+            onChange={handleInputChange}
+          >
+            {optionOriginStations}
+          </select>
+        </div>
+        <div className="form-group d-inline-block">
+          <button id="swapLocation" type="button" className="control__swap" onClick={swapLocation}>
+            <span className="glyphicon glyphicon-transfer" />
+          </button>
+        </div>
+        <div className="form-group d-inline-block">
+          <select
+            name="destinationStation"
+            id="destinationStation"
+            value={destinationStation}
+            onChange={handleInputChange}
+          >
+            {optionDestinationStations}
+          </select>
+        </div>
       </div>
-      <div className="form-group">
-        <button id="swapLocation" type="button" className="control__swap" onClick={swapLocation}>
-          <span className="glyphicon glyphicon-sort" />
-        </button>
-      </div>
-      <div className="form-group">
-        <span>終點:</span>
-        <select
-          name="destinationStation"
-          id="destinationStation"
-          value={destinationStation}
-          onChange={handleInputChange}
-        >
-          {optionDestinationStations}
-        </select>
-      </div>
+
       <a href="https://irs.thsrc.com.tw/IMINT/?locale=tw" target="_blank" rel="noreferrer">
         <span className="glyphicon glyphicon-link" />
         <span> 高鐵訂票連結 </span>

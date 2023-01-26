@@ -13,12 +13,15 @@ body {
   }
 }
 
+.d-inline-block {
+  display: inline-block;
+}
+
 .desktop--hide {
   @media screen and (min-width: 767px) {
     display: none;
   }
 }
-
 
 .table-responsive {
   min-height: calc(100vh - 128px);
@@ -50,6 +53,7 @@ body {
   input {
     padding-left: 8px;
     min-height: 40px;
+    width: calc(100% - 20rem);
   }
 }
 
@@ -61,12 +65,12 @@ select {
   text-align: center;
 }
 
-
 .control {
-  padding: 25px 15px 15px;
+  padding: 16px 16px 18px;
   border-radius: 4px;
 
-  input, select {
+  input,
+  select {
     border-radius: 2px;
     border: none;
     outline: none;
@@ -77,11 +81,17 @@ select {
     font-weight: 700;
   }
 
+  .column-name {
+    display: inline-block;
+    min-width: 8.5rem;
+  }
+
   .control__swap {
     border: none;
     background: none;
     font-size: 20px;
-    margin-left: 75px;
+    margin-left: 8px;
+    transform: translateY(4px);
   }
 }
 
@@ -110,7 +120,8 @@ select {
   border-top: 4px solid #666;
 }
 
-a:focus, a:hover {
+a:focus,
+a:hover {
   text-decoration: none;
 }
 
@@ -118,14 +129,14 @@ a:focus, a:hover {
   .active {
     background-color: #dfdfdf;
   }
-  
+
   .control {
     background-color: rgba(#dd5500, 0.8);
-  
+
     span {
       color: #fff;
     }
-  
+
     .control__swap {
       color: #fff;
     }
@@ -135,7 +146,7 @@ a:focus, a:hover {
     &:hover {
       background-color: #dfdfdf;
     }
-  
+
     &:focus {
       background-color: #dfdfdf;
     }
@@ -155,14 +166,14 @@ a:focus, a:hover {
   .active {
     background-color: #dfdfdf;
   }
-  
+
   .control {
     background-color: rgba(#dd5500, 0.7);
-  
+
     span {
       color: #fff;
     }
-  
+
     .control__swap {
       color: #fff;
     }
@@ -172,7 +183,7 @@ a:focus, a:hover {
     &:hover {
       background-color: #333333;
     }
-  
+
     &:focus {
       background-color: #333333;
     }
@@ -181,7 +192,7 @@ a:focus, a:hover {
   .arrow--asc {
     border-bottom: 4px solid #efefef;
   }
-  
+
   .arrow--dsc {
     border-top: 4px solid #efefef;
   }
@@ -194,4 +205,3 @@ a:focus, a:hover {
   background: #333333;
   width: 100%;
 }
-
