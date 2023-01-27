@@ -1,8 +1,10 @@
-import axios from 'axios';
+import Axios from 'axios';
+import { setupCache } from 'axios-cache-interceptor';
 import { parse, stringify } from 'qs';
 import Swal from 'sweetalert2';
 import { camelizeKeys } from 'humps';
 
+const axios = setupCache(Axios);
 let isModalOpen = false;
 const API_URL = 'https://ptx.transportdata.tw/MOTC/v2/Rail/THSR';
 
