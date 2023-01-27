@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import swal from 'sweetalert2';
 import moment from 'moment';
 
@@ -114,16 +114,6 @@ class App extends Component {
     return (
       <>
         <div className="App container">
-          <div className="sticky desktop--hide">
-            <PickerDateAndPlace
-              date={date}
-              stations={stations}
-              originStation={originStation}
-              destinationStation={destinationStation}
-              handleInputChange={this.handleInputChange}
-              swapLocation={this.swapLocation}
-            />
-          </div>
           <div className="row content--mobile">
             <div className="col-md-8 col-sm-7 col-xs-12">
               <h3 id="title">高鐵班次時刻表快速查詢</h3>
@@ -145,6 +135,16 @@ class App extends Component {
                 swapLocation={this.swapLocation}
               />
             </div>
+          </div>
+          <div className="position-fixed desktop--hide">
+            <PickerDateAndPlace
+              date={date}
+              stations={stations}
+              originStation={originStation}
+              destinationStation={destinationStation}
+              handleInputChange={this.handleInputChange}
+              swapLocation={this.swapLocation}
+            />
           </div>
         </div>
         <div className="container-fluid">
