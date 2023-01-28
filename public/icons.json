@@ -1,11 +1,5 @@
 {
-  "short_name": "高鐵時刻快速查詢",
-  "name": "高鐵班次時刻表快速查詢",
   "icons": [
-    {
-      "src": "hsr.png",
-      "sizes": "512x512"
-    },
     {
       "src": "windows11/SmallTile.scale-100.png",
       "sizes": "71x71"
@@ -454,9 +448,5 @@
       "src": "ios/1024.png",
       "sizes": "1024x1024"
     }
-  ],
-  "start_url": "/thsr-app/",
-  "display": "standalone",
-  "theme_color": "#DD5500",
-  "background_color": "#ffffff"
+  ]
 }
