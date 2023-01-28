@@ -3,6 +3,10 @@
   "name": "台灣高鐵",
   "icons": [
     {
+      "src": "hsr.png",
+      "sizes": "512x512"
+    },
+    {
       "src": "windows11/SmallTile.scale-100.png",
       "sizes": "71x71"
     },
