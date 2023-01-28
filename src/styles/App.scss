@@ -58,7 +58,6 @@ body {
   input {
     padding-left: 8px;
     min-height: 40px;
-    width: calc(100% - 20rem);
   }
 }
 
@@ -77,6 +76,7 @@ select {
   input,
   select {
     border-radius: 2px;
+    padding-right: 16px;
     border: none;
     outline: none;
   }

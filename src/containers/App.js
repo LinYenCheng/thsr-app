@@ -115,7 +115,7 @@ class App extends Component {
       <>
         <div className="App container">
           <div className="row content--mobile">
-            <div className="col-md-8 col-sm-7 col-xs-12">
+            <div className="col-lg-8 col-md-7 col-sm-6 col-xs-12">
               <h3 id="title">高鐵班次時刻表快速查詢</h3>
               <RailTable
                 isLoading={isLoading}
@@ -125,7 +125,7 @@ class App extends Component {
                 destinationStation={destinationStation}
               />
             </div>
-            <div className="col-md-4 col-sm-5 col-xs-12 sticky mobile--hide">
+            <div className="col-lg-4 col-md-5 col-sm-6 col-xs-12 sticky mobile--hide">
               <PickerDateAndPlace
                 date={date}
                 stations={stations}
