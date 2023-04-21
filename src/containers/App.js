@@ -117,6 +117,14 @@ class App extends Component {
           <div className="row content--mobile">
             <div className="col-lg-8 col-md-7 col-sm-6 col-xs-12">
               <h3 id="title">高鐵班次時刻表快速查詢</h3>
+              <ins
+                className="adsbygoogle"
+                style={{ display: 'block' }}
+                data-ad-format="fluid"
+                data-ad-layout-key="-h4+1+1q-1t-2x"
+                data-ad-client="ca-pub-1297466993744883"
+                data-ad-slot="6263096726"
+              ></ins>
               <RailTable
                 isLoading={isLoading}
                 isSubmit={isSubmit}
@@ -134,6 +142,15 @@ class App extends Component {
                 handleInputChange={this.handleInputChange}
                 swapLocation={this.swapLocation}
               />
+              <br />
+              <ins
+                className="adsbygoogle"
+                style={{ display: 'block' }}
+                data-ad-client="ca-pub-1297466993744883"
+                data-ad-slot="9240487898"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+              ></ins>
             </div>
           </div>
           <div className="position-fixed desktop--hide">
