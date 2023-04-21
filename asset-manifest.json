@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/thsr-app/static/css/main.51feeddb.css",
-    "main.js": "/thsr-app/static/js/main.2db8c512.js",
+    "main.js": "/thsr-app/static/js/main.195629bd.js",
     "index.html": "/thsr-app/index.html",
     "main.51feeddb.css.map": "/thsr-app/static/css/main.51feeddb.css.map",
-    "main.2db8c512.js.map": "/thsr-app/static/js/main.2db8c512.js.map"
+    "main.195629bd.js.map": "/thsr-app/static/js/main.195629bd.js.map"
   },
   "entrypoints": [
     "static/css/main.51feeddb.css",
-    "static/js/main.2db8c512.js"
+    "static/js/main.195629bd.js"
   ]
 }
