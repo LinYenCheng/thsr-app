@@ -108,7 +108,7 @@ function RailTable({
 
       return (
         <tr key={departureTime}>
-          <td>{`${stationName}|${destinationStationName}`}</td>
+          <td>{`${stationName}➔${destinationStationName}`}</td>
           <td>{dailyTrainInfo.trainNo}</td>
           <td>{departureTime}</td>
           <td>{arrivalTime}</td>
