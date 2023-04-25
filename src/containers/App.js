@@ -147,7 +147,7 @@ class App extends Component {
                 className="adsbygoogle"
                 style={{ display: 'block' }}
                 data-ad-client="ca-pub-1297466993744883"
-                data-ad-slot="9240487898"
+                data-ad-slot="9012117796"
                 data-ad-format="auto"
                 data-full-width-responsive="true"
               ></ins>
