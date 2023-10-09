@@ -76,6 +76,14 @@ function PickerDateAndPlace({
         <span className="glyphicon glyphicon-link" />
         <span> 高鐵訂票連結 </span>
       </a>
+
+      {isMobile && (
+        <a href="https://appurl.io/cLHMAafm1q" target="_blank" rel="noreferrer">
+          <span className="glyphicon glyphicon-phone" />
+          <span> 高鐵 App </span>
+        </a>
+      )}
+
       {!isMobile && (
         <>
           <br />
