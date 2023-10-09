@@ -22,7 +22,9 @@ class App extends Component {
       destinationStation: localStorage.getItem('destinationStation') || '',
       updateTime: '',
       times: [],
+      isMobile: window.innerWidth < 768, // 假設小於768px寬度視為手機板
     };
+    this.handleResize = this.handleResize.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.submit = this.submit.bind(this);
     this.swapLocation = () => {
@@ -50,6 +52,17 @@ class App extends Component {
           m.submit();
         },
       );
+    });
+    window.addEventListener('resize', this.handleResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+  }
+
+  handleResize() {
+    this.setState({
+      isMobile: window.innerWidth < 768,
     });
   }
 
@@ -107,7 +120,7 @@ class App extends Component {
   }
 
   render() {
-    const { stations } = this.state;
+    const { isMobile, stations } = this.state;
     const { date, times, originStation, destinationStation, updateTime, isLoading, isSubmit } =
       this.state;
 
@@ -115,7 +128,7 @@ class App extends Component {
       <>
         <div className="App container">
           <div className="row content--mobile">
-          <div className="col-lg-4 col-md-5 col-sm-6 col-xs-12 sticky mobile--hide">
+            <div className="col-lg-4 col-md-5 col-sm-6 col-xs-12 sticky mobile--hide">
               <PickerDateAndPlace
                 date={date}
                 stations={stations}
@@ -125,6 +138,44 @@ class App extends Component {
                 swapLocation={this.swapLocation}
               />
               <br />
+              {!isMobile && (
+                <div className="google-ad">
+                  <ins
+                    className="adsbygoogle"
+                    style={{ display: 'block' }}
+                    data-ad-client="ca-pub-1297466993744883"
+                    data-ad-slot="9012117796"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"
+                  ></ins>
+                </div>
+              )}
+            </div>
+            <div className="col-lg-8 col-md-7 col-sm-6 col-xs-12">
+              <h3 id="title">高鐵班次時刻表快速查詢</h3>
+              <RailTable
+                isLoading={isLoading}
+                isSubmit={isSubmit}
+                date={date}
+                times={times}
+                destinationStation={destinationStation}
+              />
+              {!isMobile && (
+                <div className="google-ad mobile--hide">
+                  <ins
+                    className="adsbygoogle"
+                    style={{ display: 'block' }}
+                    data-ad-format="fluid"
+                    data-ad-layout-key="-h4+1+1q-1t-2x"
+                    data-ad-client="ca-pub-1297466993744883"
+                    data-ad-slot="9012117796"
+                  ></ins>
+                </div>
+              )}
+            </div>
+          </div>
+          {isMobile && (
+            <div className="google-ad">
               <ins
                 className="adsbygoogle"
                 style={{ display: 'block' }}
@@ -134,27 +185,10 @@ class App extends Component {
                 data-full-width-responsive="true"
               ></ins>
             </div>
-            <div className="col-lg-8 col-md-7 col-sm-6 col-xs-12">
-              <h3 id="title">高鐵班次時刻表快速查詢</h3>
-              <ins
-                className="adsbygoogle"
-                style={{ display: 'block' }}
-                data-ad-format="fluid"
-                data-ad-layout-key="-h4+1+1q-1t-2x"
-                data-ad-client="ca-pub-1297466993744883"
-                data-ad-slot="6263096726"
-              ></ins>
-              <RailTable
-                isLoading={isLoading}
-                isSubmit={isSubmit}
-                date={date}
-                times={times}
-                destinationStation={destinationStation}
-              />
-            </div>         
-          </div>
+          )}
           <div className="position-fixed desktop--hide">
             <PickerDateAndPlace
+              isMobile={isMobile}
               date={date}
               stations={stations}
               originStation={originStation}
