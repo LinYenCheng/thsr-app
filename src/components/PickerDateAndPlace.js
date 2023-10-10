@@ -43,7 +43,7 @@ function PickerDateAndPlace({
         />
       </div>
 
-      <div>
+      <div className="space-between">
         <div className="form-group d-inline-block">
           <span className="column-name">起|終點:</span>
           <select
@@ -72,17 +72,19 @@ function PickerDateAndPlace({
         </div>
       </div>
 
-      <a href="https://irs.thsrc.com.tw/IMINT/?locale=tw" target="_blank" rel="noreferrer">
-        <span className="glyphicon glyphicon-link" />
-        <span> 高鐵訂票連結 </span>
-      </a>
-
-      {isMobile && (
-        <a href="https://appurl.io/cLHMAafm1q" target="_blank" rel="noreferrer">
-          <span className="glyphicon glyphicon-phone" />
-          <span> 高鐵 App </span>
+      <div className="space-between">
+        <a href="https://irs.thsrc.com.tw/IMINT/?locale=tw" target="_blank" rel="noreferrer">
+          <span className="glyphicon glyphicon-link" />
+          <span> 高鐵訂票連結 </span>
         </a>
-      )}
+
+        {isMobile && (
+          <a href="https://appurl.io/cLHMAafm1q" target="_blank" rel="noreferrer">
+            <span className="glyphicon glyphicon-phone" />
+            <span> 高鐵 App </span>
+          </a>
+        )}
+      </div>
 
       {!isMobile && (
         <>

@@ -264,3 +264,8 @@ th {
     min-height: 130px;
   }
 }
+
+.space-between {
+  display: flex;
+  justify-content: space-between;
+}
