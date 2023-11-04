@@ -97,18 +97,20 @@ API.interceptors.response.use(
             },
           });
         }
+      } else {
+        Swal({
+          type: 'error',
+          title: '伺服器維修中',
+          showConfirmButton: false,
+          showCloseButton: true,
+          onClose: () => {
+            isModalOpen = false;
+          },
+        });
       }
       return parseError(error.response.data);
     } else {
-      Swal({
-        type: 'error',
-        title: '伺服器維修中',
-        showConfirmButton: false,
-        showCloseButton: true,
-        onClose: () => {
-          isModalOpen = false;
-        },
-      });
+      window.alert('抱歉，今日伺服器維修中。')
     }
 
     return Promise.reject(error);
