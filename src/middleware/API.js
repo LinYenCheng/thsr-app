@@ -99,7 +99,18 @@ API.interceptors.response.use(
         }
       }
       return parseError(error.response.data);
+    } else {
+      Swal({
+        type: 'error',
+        title: '伺服器維修中',
+        showConfirmButton: false,
+        showCloseButton: true,
+        onClose: () => {
+          isModalOpen = false;
+        },
+      });
     }
+
     return Promise.reject(error);
   },
 );
