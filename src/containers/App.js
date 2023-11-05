@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
-import swal from 'sweetalert2';
+import Swal from 'sweetalert2';
 import moment from 'moment';
 import { camelizeKeys } from 'humps';
 
@@ -352,9 +352,10 @@ class App extends Component {
         m.submit,
       );
     } else {
-      swal({
-        type: 'info',
-        timer: 1000,
+      Swal.fire({
+        icon: 'info',
+        type: 'warn',
+        timer: 5000,
         title: '起點和終點需不同',
         showConfirmButton: false,
         showCloseButton: true,

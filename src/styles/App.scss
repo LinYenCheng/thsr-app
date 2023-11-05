@@ -269,3 +269,18 @@ th {
   display: flex;
   justify-content: space-between;
 }
+
+hr {
+  border-top: 2px solid rgba(#fff, 0.5);
+}
+
+.button-gift {
+  padding: 0.5rem 2rem;
+  text-align: center;
+  border: none;
+  border-radius: 0.5rem;
+
+  span {
+    color: #dd5500;
+  }
+}

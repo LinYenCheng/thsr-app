@@ -75,8 +75,9 @@ API.interceptors.response.use(
     if (error.response) {
       if (error.response.status === 403) {
         if (!isModalOpen) {
-          Swal({
-            type: 'error',
+          Swal.fire({
+            icon: 'info',
+            icon: 'error',
             title: '請更換日期',
             showConfirmButton: false,
             showCloseButton: true,
@@ -87,7 +88,8 @@ API.interceptors.response.use(
         }
       } else if (error.response.status === 500) {
         if (!isModalOpen) {
-          Swal({
+          Swal.fire({
+            icon: 'info',
             type: 'error',
             title: '連線或伺服器發生錯誤',
             showConfirmButton: false,
@@ -98,7 +100,8 @@ API.interceptors.response.use(
           });
         }
       } else {
-        Swal({
+        Swal.fire({
+          icon: 'info',
           type: 'error',
           title: '伺服器維修中',
           showConfirmButton: false,
@@ -110,7 +113,16 @@ API.interceptors.response.use(
       }
       return parseError(error.response.data);
     } else {
-      window.alert('抱歉，今日伺服器維修中。');
+      Swal.fire({
+        icon: 'info',
+        type: 'error',
+        title: '抱歉，伺服器維修中',
+        showConfirmButton: false,
+        showCloseButton: true,
+        onClose: () => {
+          isModalOpen = false;
+        },
+      });
     }
 
     return Promise.reject(error);
