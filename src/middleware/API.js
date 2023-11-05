@@ -6,7 +6,7 @@ import { camelizeKeys } from 'humps';
 
 const axios = setupCache(Axios);
 let isModalOpen = false;
-const API_URL = 'https://ptx.transportdata.tw/MOTC/v2/Rail/THSR';
+const API_URL = 'https://tdx.transportdata.tw/api/basic/v2/Rail/THSR';
 
 /**
  *
@@ -110,7 +110,7 @@ API.interceptors.response.use(
       }
       return parseError(error.response.data);
     } else {
-      window.alert('抱歉，今日伺服器維修中。')
+      window.alert('抱歉，今日伺服器維修中。');
     }
 
     return Promise.reject(error);
