@@ -124,7 +124,7 @@ function PickerDateAndPlace({
       {!isMobile && (
         <>
           <br />
-          <div class="google-ad mobile--hide">
+          <div className="google-ad mobile--hide">
             <ins
               className="adsbygoogle"
               style={{ display: 'block' }}

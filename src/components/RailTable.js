@@ -13,7 +13,6 @@ function RailTable({
   date,
   times,
   isLoading,
-  isSubmit,
   // originStation,
 }) {
   const [sortActiveMode, setSortActiveMode] = useState(0);
@@ -35,7 +34,7 @@ function RailTable({
   };
 
   let blockTableRows;
-  if (isLoading && isSubmit) {
+  if (isLoading) {
     blockTableRows = (
       <tr id="row-searching">
         <td colSpan="6" style={{ textAlign: 'center' }}>
@@ -43,7 +42,7 @@ function RailTable({
         </td>
       </tr>
     );
-  } else if (!isLoading && isSubmit) {
+  } else if (!isLoading) {
     blockTableRows = (
       <tr id="row-nodata">
         <td colSpan="6" style={{ textAlign: 'center' }}>
@@ -61,7 +60,7 @@ function RailTable({
     );
   }
 
-  if (!isLoading && isSubmit) {
+  if (!isLoading) {
     // 先過濾資料，升序降序
     let finalData = [...times];
 
