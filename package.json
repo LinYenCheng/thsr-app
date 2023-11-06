@@ -20,8 +20,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "coverage": "jest --coverage",
     "test:ci": "CI=true react-scripts test --env=jsdom",
     "test:coverage": "npm test -- --coverage",
+    "make-badges": "coverage-badges",
     "eject": "react-scripts eject",
     "predeploy": "CI=false npm run build",
     "format": "prettier --write \"src/**/*.{js,scss}\"",
@@ -40,6 +42,9 @@
     "react-error-overlay": "6.0.9"
   },
   "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.23.0",
+    "@babel/preset-react": "^7.22.15",
+    "coverage-badges-cli": "^1.1.1",
     "enzyme": "^3.11.0",
     "eslint": "^8.39.0",
     "eslint-config-airbnb": "^19.0.4",
@@ -60,6 +65,10 @@
       "src/util/**/*.js",
       "!**/node_modules/**",
       "!**/vendor/**"
+    ],
+    "coverageReporters": [
+      "lcov",
+      "json-summary"
     ]
   }
 }
