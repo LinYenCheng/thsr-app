@@ -3,7 +3,9 @@ import { camelizeKeys } from 'humps';
 
 function useTimes({ originStation, destinationStation, date }) {
   const { data, error, isLoading } = useSWR(
-    `/DailyTimetable/OD/${originStation}/to/${destinationStation}/${date}`,
+    originStation && destinationStation
+      ? `/DailyTimetable/OD/${originStation}/to/${destinationStation}/${date}`
+      : null,
   );
 
   if (data && data?.length) {
