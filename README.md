@@ -1,31 +1,64 @@
 ![Coverage](./coverage/badges.svg)
 
-專案使用 [Create React App](https://github.com/facebook/create-react-app)
 串接的政府的[資料來源](https://ptx.transportdata.tw/MOTC/)
+
+# 高鐵時刻表
+
+輕量化的高鐵班次時刻表快速查詢網頁
+
+## Installation
+
+Make sure you have Node.js and npm installed.
 
 ## Available Scripts
 
-In the project directory, you can run:
+In the project directory, you can run the following npm scripts:
 
-### `npm start`
+### Development
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+#### Start
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+Starts the development server using Vite.
 
-### `npm test`
+### Building
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Build
 
-### `npm run build`
+Builds the project for production.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### Preview
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+Creates a production preview of the built project.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Testing
+
+#### Test
+
+Runs the test suite using Vitest.
+
+#### Coverage
+
+Runs tests with coverage reports.
+
+#### Test Summary
+
+Generates a test summary with coverage and outputs the reports in JUnit and JSON format.
+
+### Additional Scripts
+
+#### Make Badges
+
+Generates coverage badges using coverage-badges.
+
+#### Predeploy
+
+Runs the build process before deployment.
+
+## Usage
+
+- Use `npm start` to run the development server.
+- Execute `npm run test` to run tests using Vitest.
+- Run `npm run build` for production builds.
+- Check coverage with `npm run coverage`.
+- Generate coverage reports using `npm run test:summary`.
+- Utilize other scripts as needed for formatting, deployment, and preview.
