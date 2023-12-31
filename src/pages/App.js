@@ -80,7 +80,7 @@ function App() {
 
   return (
     <>
-      <div className="App container">
+      <div className="container">
         <div className="row content--mobile">
           <div className="col-lg-4 col-md-5 col-sm-6 col-xs-12 sticky mobile--hide">
             <PickerDateAndPlace
@@ -113,6 +113,9 @@ function App() {
               times={times}
               destinationStation={destinationStation}
             />
+            <ConditionalRenderer isShowContent={isMobile}>
+              <div style={{ width: '100%', height: '350px' }}></div>
+            </ConditionalRenderer>
             <ConditionalRenderer isShowContent={!isMobile}>
               <div className="google-ad mobile--hide">
                 <ins
@@ -128,7 +131,7 @@ function App() {
           </div>
         </div>
         <ConditionalRenderer isShowContent={isMobile}>
-          <div className="google-ad" style={{ width: '100%', height: '350px' }}>
+          {/* <div className="google-ad" style={{ width: '100%', height: '350px' }}>
             <ins
               className="adsbygoogle"
               style={{ display: 'block' }}
@@ -137,7 +140,7 @@ function App() {
               data-ad-format="auto"
               data-full-width-responsive="true"
             ></ins>
-          </div>
+          </div> */}
         </ConditionalRenderer>
         <div className="position-fixed desktop--hide">
           <PickerDateAndPlace
