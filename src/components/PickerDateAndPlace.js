@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import 'date-input-polyfill';
 
 import srcGift from './assets/gift.jpg';
+import ConditionalRenderer from './ConditionalRenderer';
 
 function PickerDateAndPlace({
   isMobile,
@@ -105,37 +106,35 @@ function PickerDateAndPlace({
           <span> 高鐵訂票連結 </span>
         </a>
 
-        {isMobile && (
+        <ConditionalRenderer isShowContent={isMobile}>
           <a href="https://appurl.io/cLHMAafm1q" target="_blank" rel="noreferrer">
             <span className="glyphicon glyphicon-phone" />
             <span> 高鐵 App </span>
           </a>
-        )}
+        </ConditionalRenderer>
       </div>
 
       <hr />
       <div className="text-center">
-        <button className="button-gift" onClick={openGift}>
+        <button type="button" className="button-gift" onClick={openGift}>
           <span className="glyphicon glyphicon-gift" />
           <span> 喜歡這個網站 </span>
         </button>
       </div>
 
-      {!isMobile && (
-        <>
-          <br />
-          <div className="google-ad mobile--hide">
-            <ins
-              className="adsbygoogle"
-              style={{ display: 'block' }}
-              data-ad-format="fluid"
-              data-ad-layout-key="-h4+1+1q-1t-2x"
-              data-ad-client="ca-pub-1297466993744883"
-              data-ad-slot="6263096726"
-            ></ins>
-          </div>
-        </>
-      )}
+      <ConditionalRenderer isShowContent={!isMobile}>
+        <br />
+        <div className="google-ad mobile--hide">
+          <ins
+            className="adsbygoogle"
+            style={{ display: 'block' }}
+            data-ad-format="fluid"
+            data-ad-layout-key="-h4+1+1q-1t-2x"
+            data-ad-client="ca-pub-1297466993744883"
+            data-ad-slot="6263096726"
+          ></ins>
+        </div>
+      </ConditionalRenderer>
     </div>
   );
 }
