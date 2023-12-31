@@ -21,7 +21,8 @@ export default defineConfig({
     css: true,
     reporters: ['verbose'],
     coverage: {
-      reporter: ['text', 'json', 'html'],
+      provider: 'istanbul',
+      reporter: ['text', 'json', 'html', ['lcov', { projectRoot: './src' }, 'json-summary']],
       include: ['src/**/*'],
       exclude: [],
     },

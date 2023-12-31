@@ -7,7 +7,7 @@ import {
   sortDepartureTime,
   sortArrivalTime,
   sortTravelTime,
-} from '../util/util';
+} from '../utils/util';
 
 function RailTable({
   date,

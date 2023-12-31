@@ -4,12 +4,15 @@
   "private": true,
   "homepage": "http://linyencheng.github.io/thsr-app",
   "devDependencies": {
+    "@testing-library/dom": "^9.2.0",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.2.5",
     "@types/react": "^18.2.46",
     "@types/react-dom": "^18.2.18",
     "@vitejs/plugin-react": "^4.2.1",
-    "@vitest/coverage-v8": "^1.1.0",
+    "@vitest/coverage-istanbul": "^1.1.0",
     "coverage-badges-cli": "^1.1.1",
-    "enzyme": "^3.11.0",
     "eslint": "^8.39.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.8.0",
@@ -26,6 +29,7 @@
     "vitest": "^1.1.0"
   },
   "dependencies": {
+    "@testing-library/dom": "^9.3.3",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "date-input-polyfill": "^2.14.0",
     "gh-pages": "^5.0.0",
@@ -44,31 +48,12 @@
     "start": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "coverage": "jest --coverage",
+    "coverage": "vitest run --coverage",
     "test": "vitest",
-    "test:coverage": "vitest run --coverage --watch=false",
+    "test:summary": "vitest run --coverage.enabled --reporter=junit --coverage.reporter=json-summary",
     "make-badges": "coverage-badges",
     "predeploy": "CI=false npm run build",
     "format": "prettier --write \"src/**/*.{js,scss}\"",
     "deploy": "gh-pages -b gh-pages -d build"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
-  "jest": {
-    "collectCoverageFrom": [
-      "src/components/**/*.js",
-      "src/containers/**/*.js",
-      "src/util/**/*.js",
-      "!**/node_modules/**",
-      "!**/vendor/**"
-    ],
-    "coverageReporters": [
-      "lcov",
-      "json-summary"
-    ]
   }
 }

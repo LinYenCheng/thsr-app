@@ -7,7 +7,7 @@ function minutesOfDay(m) {
 function getItemsWithDepartureTimeAfterNow(data) {
   const { date, finalData: originalItems } = data;
   const finalItems = originalItems.filter(
-    (item) => moment(`${date} ${item.originStopTime.departureTime}`).unix() > moment().unix(),
+    (item) => moment(`${date} ${item?.originStopTime?.departureTime}`).unix() > moment().unix(),
   );
   return finalItems;
 }
@@ -48,14 +48,6 @@ function sortArrivalTime(data) {
     );
   }
   return originalItems;
-}
-
-function getDestinationInfo(trainNo, times) {
-  const nowInfo = times.filter((item) => item.dailyTrainInfo.trainNo === trainNo);
-  if (nowInfo[0]) {
-    return nowInfo[0].destinationStopTime;
-  }
-  return false;
 }
 
 function getTravelTime(date, start, end) {
@@ -123,11 +115,10 @@ function sortTravelTime(data) {
 }
 
 export {
+  getTravelTime,
   getItemsWithDepartureTimeAfterNow,
   sortDepartureTime,
   sortArrivalTime,
-  getDestinationInfo,
-  getTravelTime,
   getItemsWithTravelTimes,
   sortTravelTime,
 };
