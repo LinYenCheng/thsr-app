@@ -10,7 +10,7 @@ body {
 
 .position-fixed {
   @media screen and (max-width: 767px) {
-    top: calc(90vh - 240px);
+    bottom: 80px;
     z-index: 999;
     position: fixed;
     width: calc(100% - 4rem);
