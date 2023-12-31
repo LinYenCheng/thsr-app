@@ -2,7 +2,7 @@ import { createRoot } from 'react-dom/client';
 import { SWRConfig } from 'swr';
 import Swal from 'sweetalert2';
 
-import App from './containers/App';
+import App from './pages/App';
 import * as serviceWorker from './serviceWorker';
 
 const container = document.getElementById('root');

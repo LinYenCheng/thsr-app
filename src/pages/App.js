@@ -8,6 +8,7 @@ import RailTable from '../components/RailTable';
 
 import useTimes from '../hooks/useTimes';
 import useStations from '../hooks/useStations';
+import ConditionalRenderer from '../components/ConditionalRenderer';
 
 import '../styles/App.scss';
 
@@ -29,6 +30,8 @@ function App() {
   const handleResize = () => {
     setIsMobile(window.innerWidth < 768);
   };
+
+  console.log(isMobile);
 
   const handleInputChange = (event) => {
     const { type, name, checked, value } = event.target;
@@ -89,7 +92,7 @@ function App() {
               swapLocation={swapLocation}
             />
             <br />
-            {!isMobile && (
+            <ConditionalRenderer isShowContent={!isMobile}>
               <div className="google-ad">
                 <ins
                   className="adsbygoogle"
@@ -100,7 +103,7 @@ function App() {
                   data-full-width-responsive="true"
                 ></ins>
               </div>
-            )}
+            </ConditionalRenderer>
           </div>
           <div className="col-lg-8 col-md-7 col-sm-6 col-xs-12">
             <h3 id="title">高鐵班次時刻表快速查詢</h3>
@@ -110,7 +113,7 @@ function App() {
               times={times}
               destinationStation={destinationStation}
             />
-            {!isMobile && (
+            <ConditionalRenderer isShowContent={!isMobile}>
               <div className="google-ad mobile--hide">
                 <ins
                   className="adsbygoogle"
@@ -121,23 +124,21 @@ function App() {
                   data-full-width-responsive="true"
                 ></ins>
               </div>
-            )}
+            </ConditionalRenderer>
           </div>
         </div>
-        {isMobile && (
-          <div className="google-ad">
-            <div className="google-ad">
-              <ins
-                className="adsbygoogle"
-                style={{ display: 'block' }}
-                data-ad-client="ca-pub-1297466993744883"
-                data-ad-slot="9012117796"
-                data-ad-format="auto"
-                data-full-width-responsive="true"
-              ></ins>
-            </div>
+        <ConditionalRenderer isShowContent={isMobile}>
+          <div className="google-ad" style={{ width: '100%', height: '350px' }}>
+            <ins
+              className="adsbygoogle"
+              style={{ display: 'block' }}
+              data-ad-client="ca-pub-1297466993744883"
+              data-ad-slot="9012117796"
+              data-ad-format="auto"
+              data-full-width-responsive="true"
+            ></ins>
           </div>
-        )}
+        </ConditionalRenderer>
         <div className="position-fixed desktop--hide">
           <PickerDateAndPlace
             isMobile={isMobile}
@@ -150,7 +151,7 @@ function App() {
           />
         </div>
       </div>
-      <div className="container-fluid">
+      <div className="container-fluid footer">
         <div className="row">
           <div className="col-md-12 center footer">
             <i className="glyphicon glyphicon-time" />
