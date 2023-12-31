@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 // import PropTypes from 'prop-types';
 import Swal from 'sweetalert2';
 import moment from 'moment';
+import withReactContent from 'sweetalert2-react-content';
 
 import PickerDateAndPlace from '../components/PickerDateAndPlace';
 import RailTable from '../components/RailTable';
@@ -11,6 +12,8 @@ import useStations from '../hooks/useStations';
 import ConditionalRenderer from '../components/ConditionalRenderer';
 
 import '../styles/App.scss';
+
+const MySwal = withReactContent(Swal);
 
 function App() {
   const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
@@ -52,7 +55,7 @@ function App() {
         setDestinationStation(value);
       }
     } else {
-      Swal.fire({
+      MySwal.fire({
         icon: 'info',
         type: 'warn',
         timer: 5000,
