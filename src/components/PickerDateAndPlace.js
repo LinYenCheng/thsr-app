@@ -80,6 +80,9 @@ function PickerDateAndPlace({
             value={originStation}
             onChange={handleInputChange}
           >
+            <option disabled value="">
+              起點
+            </option>
             {optionOriginStations}
           </select>
         </div>
@@ -95,6 +98,9 @@ function PickerDateAndPlace({
             value={destinationStation}
             onChange={handleInputChange}
           >
+            <option disabled value="">
+              終點
+            </option>
             {optionDestinationStations}
           </select>
         </div>

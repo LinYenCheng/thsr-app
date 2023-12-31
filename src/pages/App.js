@@ -17,10 +17,8 @@ const MySwal = withReactContent(Swal);
 
 function App() {
   const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
-  const [originStation, setOriginStation] = useState(localStorage.getItem('originStation') || '');
-  const [destinationStation, setDestinationStation] = useState(
-    localStorage.getItem('destinationStation') || '',
-  );
+  const [originStation, setOriginStation] = useState('');
+  const [destinationStation, setDestinationStation] = useState('');
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   const { stations } = useStations();
@@ -72,8 +70,8 @@ function App() {
   };
 
   useEffect(() => {
-    setOriginStation(localStorage.getItem('originStation') || stations[4].stationID);
-    setDestinationStation(localStorage.getItem('destinationStation') || stations[10].stationID);
+    setOriginStation('');
+    setDestinationStation('');
     window.addEventListener('resize', handleResize);
 
     return () => {
