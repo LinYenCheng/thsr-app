@@ -11,7 +11,7 @@ import useStations from '../hooks/useStations';
 
 import '../styles/App.scss';
 
-const App = () => {
+function App() {
   const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
   const [originStation, setOriginStation] = useState(localStorage.getItem('originStation') || '');
   const [destinationStation, setDestinationStation] = useState(
@@ -115,25 +115,27 @@ const App = () => {
                 <ins
                   className="adsbygoogle"
                   style={{ display: 'block' }}
-                  data-ad-format="fluid"
-                  data-ad-layout-key="-h4+1+1q-1t-2x"
                   data-ad-client="ca-pub-1297466993744883"
                   data-ad-slot="9012117796"
+                  data-ad-format="auto"
+                  data-full-width-responsive="true"
                 ></ins>
               </div>
             )}
           </div>
         </div>
         {isMobile && (
-          <div className="google-ad" style={{ minHeight: '360px' }}>
-            <ins
-              className="adsbygoogle"
-              style={{ display: 'block' }}
-              data-ad-client="ca-pub-1297466993744883"
-              data-ad-slot="9012117796"
-              data-ad-format="auto"
-              data-full-width-responsive="true"
-            ></ins>
+          <div className="google-ad">
+            <div className="google-ad">
+              <ins
+                className="adsbygoogle"
+                style={{ display: 'block' }}
+                data-ad-client="ca-pub-1297466993744883"
+                data-ad-slot="9012117796"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+              ></ins>
+            </div>
           </div>
         )}
         <div className="position-fixed desktop--hide">
@@ -166,7 +168,7 @@ const App = () => {
       </div>
     </>
   );
-};
+}
 
 App.propTypes = {
   // stations: PropTypes.array,
