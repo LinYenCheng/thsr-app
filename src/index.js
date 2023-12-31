@@ -57,7 +57,10 @@ root.render(
   <SWRConfig
     value={{
       provider: localStorageProvider,
-      refreshInterval: 10 * 1000,
+      refreshInterval: 120 * 1000,
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
       fetcher,
     }}
   >
