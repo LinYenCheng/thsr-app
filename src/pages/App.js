@@ -106,7 +106,7 @@ function App() {
               </div>
             </ConditionalRenderer>
           </div>
-          <div className="col-lg-8 col-md-7 col-sm-6 col-xs-12">
+          <div className="col-lg-8 col-md-7 col-sm-6 col-xs-12" style={{ marginBottom: '120px' }}>
             <h3 id="title">高鐵班次時刻表快速查詢</h3>
             <RailTable
               isLoading={isLoading}
@@ -114,9 +114,6 @@ function App() {
               times={times}
               destinationStation={destinationStation}
             />
-            <ConditionalRenderer isShowContent={isMobile}>
-              <div style={{ width: '100%', height: '350px' }}></div>
-            </ConditionalRenderer>
             <ConditionalRenderer isShowContent={!isMobile}>
               <div className="google-ad mobile--hide">
                 <ins
@@ -131,18 +128,6 @@ function App() {
             </ConditionalRenderer>
           </div>
         </div>
-        <ConditionalRenderer isShowContent={isMobile}>
-          {/* <div className="google-ad" style={{ width: '100%', height: '350px' }}>
-            <ins
-              className="adsbygoogle"
-              style={{ display: 'block' }}
-              data-ad-client="ca-pub-1297466993744883"
-              data-ad-slot="9012117796"
-              data-ad-format="auto"
-              data-full-width-responsive="true"
-            ></ins>
-          </div> */}
-        </ConditionalRenderer>
         <div className="position-fixed desktop--hide">
           <PickerDateAndPlace
             isMobile={isMobile}
@@ -155,11 +140,23 @@ function App() {
           />
         </div>
       </div>
+      <div className="google-ad" style={{ width: '100%', marginBottom: '90px' }}>
+        <ins
+          className="adsbygoogle"
+          style={{ display: 'block' }}
+          data-ad-format="fluid"
+          data-ad-layout-key="-h4+1+1q-1t-2x"
+          data-ad-client="ca-pub-1297466993744883"
+          data-ad-slot="6263096726"
+        ></ins>
+      </div>
       <div className="container-fluid footer">
         <div className="row">
           <div className="col-md-12 center footer">
             <i className="glyphicon glyphicon-time" />
-            <span> {`更新時間：${moment(updateTime).format('YYYY-MM-DD HH:mm:ss')}`}</span>
+            <span>
+              {`更新時間：${moment(updateTime || undefined).format('YYYY-MM-DD HH:mm:ss')}`}
+            </span>
             <br />
             <span>
               <span>Copyright © </span>
