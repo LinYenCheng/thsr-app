@@ -102,7 +102,7 @@ function App() {
                   data-ad-slot="9012117796"
                   data-ad-format="auto"
                   data-full-width-responsive="true"
-                ></ins>
+                />
               </div>
             </ConditionalRenderer>
           </div>
@@ -142,12 +142,11 @@ function App() {
       </div>
       <div className="google-ad" style={{ width: '100%', marginBottom: '90px' }}>
         <ins
-          className="adsbygoogle"
+          class="adsbygoogle"
           style={{ display: 'block' }}
-          data-ad-format="fluid"
-          data-ad-layout-key="-h4+1+1q-1t-2x"
+          data-ad-format="autorelaxed"
           data-ad-client="ca-pub-1297466993744883"
-          data-ad-slot="6263096726"
+          data-ad-slot="1800981579"
         ></ins>
       </div>
       <div className="container-fluid footer">
