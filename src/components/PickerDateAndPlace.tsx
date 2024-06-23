@@ -1,5 +1,3 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import moment from 'moment';
 import Swal from 'sweetalert2';
 import 'date-input-polyfill';
@@ -7,32 +5,52 @@ import 'date-input-polyfill';
 import srcGift from './assets/gift.jpg';
 import ConditionalRenderer from './ConditionalRenderer';
 
+interface IStation {
+  stationUID: string;
+  stationID: string;
+  stationCode: string;
+  stationName: StationName;
+  stationAddress: string;
+  operatorID: string;
+  updateTime: string;
+  versionID: number;
+  stationPosition: StationPosition;
+  locationCity: string;
+  locationCityCode: string;
+  locationTown: string;
+  locationTownCode: string;
+}
+
+interface StationPosition {
+  positionLon: number;
+  positionLat: number;
+  geoHash: string;
+}
+
+interface StationName {
+  zhTw: string;
+  en: string;
+}
+
+type Props = {
+  isMobile: boolean;
+  date: any;
+  stations: IStation[];
+  originStation: string;
+  destinationStation: string;
+  swapLocation: () => void;
+  handleInputChange: () => void;
+};
+
 function PickerDateAndPlace({
   isMobile,
   date,
-  stations,
-  originStation,
-  destinationStation,
+  stations = [],
+  originStation = '1030',
+  destinationStation = '1060',
   handleInputChange,
-  swapLocation,
-}) {
-  const optionOriginStations = [];
-  const optionDestinationStations = [];
-  if (stations) {
-    stations.forEach((station) => {
-      optionOriginStations.push(
-        <option key={`originStation${station.stationID}`} value={station.stationID}>
-          {station.stationName.zhTw}
-        </option>,
-      );
-      optionDestinationStations.push(
-        <option key={`destinationStation${station.stationID}`} value={station.stationID}>
-          {station.stationName.zhTw}
-        </option>,
-      );
-    });
-  }
-
+  swapLocation
+}: Props) {
   const openGift = () => {
     if (window.innerWidth > 500) {
       Swal.fire({
@@ -41,7 +59,7 @@ function PickerDateAndPlace({
         showConfirmButton: false,
         imageAlt: '感謝您贊助前端三分鐘',
         showCancelButton: true,
-        cancelButtonText: '關閉',
+        cancelButtonText: '關閉'
       });
     } else {
       Swal.fire({
@@ -51,7 +69,7 @@ function PickerDateAndPlace({
         focusConfirm: false,
         confirmButtonColor: '#dd5500',
         confirmButtonText: '<i class="fa fa-thumbs-up"></i> 謝謝您!',
-        confirmButtonAriaLabel: 'Thumbs up, great!',
+        confirmButtonAriaLabel: 'Thumbs up, great!'
       });
     }
   };
@@ -83,7 +101,11 @@ function PickerDateAndPlace({
             <option disabled value="">
               起點
             </option>
-            {optionOriginStations}
+            {stations.map((station) => (
+              <option key={`originStation${station.stationID}`} value={station.stationID}>
+                {station.stationName.zhTw}
+              </option>
+            ))}
           </select>
         </div>
         <div className="form-group d-inline-block">
@@ -101,7 +123,11 @@ function PickerDateAndPlace({
             <option disabled value="">
               終點
             </option>
-            {optionDestinationStations}
+            {stations.map((station) => (
+              <option key={`destinationStation${station.stationID}`} value={station.stationID}>
+                {station.stationName.zhTw}
+              </option>
+            ))}
           </select>
         </div>
       </div>
@@ -120,14 +146,15 @@ function PickerDateAndPlace({
         </ConditionalRenderer>
       </div>
 
-      <hr />
-      <div className="text-center">
-        <button type="button" className="button-gift" onClick={openGift}>
-          <span className="glyphicon glyphicon-gift" />
-          <span> 喜歡這個網站 </span>
-        </button>
-      </div>
-
+      <ConditionalRenderer isShowContent={!isMobile}>
+        <hr />
+        <div className="text-center">
+          <button type="button" className="button-gift" onClick={openGift}>
+            <span className="glyphicon glyphicon-gift" />
+            <span> 喜歡這個網站 </span>
+          </button>
+        </div>
+      </ConditionalRenderer>
       <ConditionalRenderer isShowContent={!isMobile}>
         <br />
         <div className="google-ad mobile--hide">
@@ -138,21 +165,11 @@ function PickerDateAndPlace({
             data-ad-layout-key="-h4+1+1q-1t-2x"
             data-ad-client="ca-pub-1297466993744883"
             data-ad-slot="6263096726"
-          ></ins>
+          />
         </div>
       </ConditionalRenderer>
     </div>
   );
 }
-
-PickerDateAndPlace.propTypes = {
-  originStation: PropTypes.string,
-  destinationStation: PropTypes.string,
-};
-
-PickerDateAndPlace.defaultProps = {
-  originStation: '1030',
-  destinationStation: '1060',
-};
 
 export default PickerDateAndPlace;

@@ -1,5 +1,13 @@
 body {
-  font-family: PingFang TC, 黑體-繁, Heiti TC, 蘋果儷中黑, Apple LiGothic Medium, 微軟正黑體, Microsoft JhengHei, sans-serif !important;
+  font-family:
+    PingFang TC,
+    黑體-繁,
+    Heiti TC,
+    蘋果儷中黑,
+    Apple LiGothic Medium,
+    微軟正黑體,
+    Microsoft JhengHei,
+    sans-serif !important;
 }
 
 .sticky {
@@ -149,7 +157,7 @@ table {
 }
 
 thead {
-  height: 60px;
+  height: 2rem;
 }
 
 th {
@@ -245,8 +253,8 @@ th {
 
 .footer {
   color: #fff;
-  padding-top: 25px;
-  padding-bottom: 25px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   background: #333333;
   width: 100%;
 }

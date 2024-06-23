@@ -8,18 +8,18 @@ interface IStationsResult {
 }
 
 function useStations(): IStationsResult {
-  const { data, error, isLoading } = useSWR(`/Station`);
+  const { data, isLoading } = useSWR(`/Station`);
 
   if (data && data?.length) {
     return {
       isLoading,
-      stations: camelizeKeys(data) as IStation[],
+      stations: camelizeKeys(data) as IStation[]
     };
   }
 
   return {
     isLoading,
-    stations: CAMELIZE_STATIONS,
+    stations: CAMELIZE_STATIONS
   };
 }
 

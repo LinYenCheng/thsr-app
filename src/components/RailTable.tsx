@@ -1,20 +1,25 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import { useState } from 'react';
 
 import {
   getItemsWithDepartureTimeAfterNow,
   getItemsWithTravelTimes,
   sortDepartureTime,
   sortArrivalTime,
-  sortTravelTime,
+  sortTravelTime
 } from '../utils/util';
+
+type Props = {
+  date: any;
+  times: any;
+  isLoading: boolean;
+};
 
 function RailTable({
   date,
   times,
-  isLoading,
+  isLoading = true
   // originStation,
-}) {
+}: Props) {
   const [sortActiveMode, setSortActiveMode] = useState(0);
   const [departureTimeDSC, setDepartureTimeDSC] = useState(true);
   const [arrivalTimeDSC, setArrivalTimeDSC] = useState(true);
@@ -37,7 +42,7 @@ function RailTable({
   if (isLoading) {
     blockTableRows = (
       <tr id="row-searching">
-        <td colSpan="6" style={{ textAlign: 'center' }}>
+        <td colSpan={6} style={{ textAlign: 'center' }}>
           查詢中
         </td>
       </tr>
@@ -45,7 +50,7 @@ function RailTable({
   } else if (!isLoading) {
     blockTableRows = (
       <tr id="row-nodata">
-        <td colSpan="6" style={{ textAlign: 'center' }}>
+        <td colSpan={6} style={{ textAlign: 'center' }}>
           無座位可販售
         </td>
       </tr>
@@ -53,7 +58,7 @@ function RailTable({
   } else {
     blockTableRows = (
       <tr>
-        <td colSpan="6" style={{ textAlign: 'center' }}>
+        <td colSpan={6} style={{ textAlign: 'center' }}>
           條件已變更請重新送出查詢
         </td>
       </tr>
@@ -66,33 +71,33 @@ function RailTable({
 
     finalData = getItemsWithTravelTimes({
       date,
-      finalData,
+      finalData
     });
 
     finalData = getItemsWithDepartureTimeAfterNow({
       date,
-      finalData,
+      finalData
     });
 
     finalData = sortTravelTime({
       date,
       finalData,
       travelTimeDSC,
-      active: sortActiveMode === 1,
+      active: sortActiveMode === 1
     });
 
     finalData = sortDepartureTime({
       date,
       finalData,
       departureTimeDSC,
-      active: sortActiveMode === 0,
+      active: sortActiveMode === 0
     });
 
     finalData = sortArrivalTime({
       date,
       finalData,
       arrivalTimeDSC,
-      active: sortActiveMode === 2,
+      active: sortActiveMode === 2
     });
 
     blockTableRows = finalData.map((row) => {
@@ -102,7 +107,7 @@ function RailTable({
         stationName,
         destinationStationName,
         arrivalTime,
-        travelTime,
+        travelTime
       } = row;
 
       return (
@@ -142,15 +147,5 @@ function RailTable({
     </div>
   );
 }
-
-RailTable.propTypes = {
-  isLoading: PropTypes.bool,
-  isSubmit: PropTypes.bool,
-};
-
-RailTable.defaultProps = {
-  isLoading: true,
-  isSubmit: true,
-};
 
 export default RailTable;
