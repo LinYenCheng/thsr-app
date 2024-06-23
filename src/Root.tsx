@@ -3,8 +3,6 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import App from './pages/App';
 
-type Props = {};
-
 interface CustomError extends Error {
   info?: any;
   status?: number;
@@ -29,7 +27,7 @@ const fetcher = async (resource: string): Promise<any> => {
       icon: 'info',
       title: error.info?.Message || '抱歉，伺服器維修中',
       showConfirmButton: false,
-      showCloseButton: true,
+      showCloseButton: true
     });
 
     throw error;
@@ -60,10 +58,10 @@ const swrConfig: SWRConfiguration = {
   revalidateOnReconnect: false,
   shouldRetryOnError: false,
   keepPreviousData: true,
-  fetcher,
+  fetcher
 } as any;
 
-export default function Root({}: Props) {
+export default function Root() {
   return (
     <SWRConfig value={swrConfig}>
       <App />
