@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-// import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import moment from 'moment';
 import withReactContent from 'sweetalert2-react-content';
@@ -25,17 +24,15 @@ function App() {
   const { updateTime, times, isLoading } = useTimes({
     originStation,
     destinationStation,
-    date,
+    date
   });
 
   const handleResize = () => {
     setIsMobile(window.innerWidth < 768);
   };
 
-  console.log(isMobile);
-
   const handleInputChange = (event) => {
-    const { type, name, checked, value } = event.target;
+    const { name, value } = event.target;
     event.preventDefault();
 
     if (
@@ -59,7 +56,7 @@ function App() {
         timer: 5000,
         title: '起點和終點需不同',
         showConfirmButton: false,
-        showCloseButton: true,
+        showCloseButton: true
       });
     }
   };
@@ -107,7 +104,9 @@ function App() {
             </ConditionalRenderer>
           </div>
           <div className="col-lg-8 col-md-7 col-sm-6 col-xs-12" style={{ marginBottom: '120px' }}>
-            <h3 id="title">高鐵班次時刻表快速查詢</h3>
+            <ConditionalRenderer isShowContent={!isMobile}>
+              <h3 id="title">高鐵班次時刻表快速查詢</h3>
+            </ConditionalRenderer>
             <RailTable
               isLoading={isLoading}
               date={date}
@@ -119,11 +118,11 @@ function App() {
                 <ins
                   className="adsbygoogle"
                   style={{ display: 'block' }}
+                  data-ad-format="autorelaxed"
                   data-ad-client="ca-pub-1297466993744883"
-                  data-ad-slot="9012117796"
-                  data-ad-format="auto"
+                  data-ad-slot="1800981579"
                   data-full-width-responsive="true"
-                ></ins>
+                />
               </div>
             </ConditionalRenderer>
           </div>
@@ -142,12 +141,12 @@ function App() {
       </div>
       <div className="google-ad" style={{ width: '100%', marginBottom: '90px' }}>
         <ins
-          class="adsbygoogle"
+          className="adsbygoogle"
           style={{ display: 'block' }}
           data-ad-format="autorelaxed"
           data-ad-client="ca-pub-1297466993744883"
           data-ad-slot="1800981579"
-        ></ins>
+        />
       </div>
       <div className="container-fluid footer">
         <div className="row">
