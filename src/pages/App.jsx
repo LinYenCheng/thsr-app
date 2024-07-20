@@ -1,4 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import useLocalStorageState from 'use-local-storage-state';
+
 import Swal from 'sweetalert2';
 import moment from 'moment';
 import withReactContent from 'sweetalert2-react-content';
@@ -16,9 +18,13 @@ const MySwal = withReactContent(Swal);
 
 function App() {
   const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
-  const [originStation, setOriginStation] = useState('');
-  const [destinationStation, setDestinationStation] = useState('');
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [originStation, setOriginStation] = useLocalStorageState('originStation', {
+    defaultValue: ''
+  });
+  const [destinationStation, setDestinationStation] = useLocalStorageState('destinationStation', {
+    defaultValue: ''
+  });
+  const isMobile = window.innerWidth < 768;
 
   const { stations } = useStations();
   const { updateTime, times, isLoading } = useTimes({
@@ -26,10 +32,6 @@ function App() {
     destinationStation,
     date
   });
-
-  const handleResize = () => {
-    setIsMobile(window.innerWidth < 768);
-  };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -65,16 +67,6 @@ function App() {
     setOriginStation(destinationStation);
     setDestinationStation(originStation);
   };
-
-  useEffect(() => {
-    setOriginStation('');
-    setDestinationStation('');
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
 
   return (
     <>
