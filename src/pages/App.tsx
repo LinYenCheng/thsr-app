@@ -33,8 +33,8 @@ function App() {
     date
   });
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
+  const handleInputChange = (event: React.ChangeEvent) => {
+    const { name, value } = event.target as HTMLInputElement;
     event.preventDefault();
 
     if (
@@ -74,6 +74,7 @@ function App() {
         <div className="row content--mobile">
           <div className="col-lg-4 col-md-5 col-sm-6 col-xs-12 sticky mobile--hide">
             <PickerDateAndPlace
+              isMobile
               date={date}
               stations={stations}
               originStation={originStation}
@@ -99,12 +100,7 @@ function App() {
             <ConditionalRenderer isShowContent={!isMobile}>
               <h3 id="title">高鐵班次時刻表快速查詢</h3>
             </ConditionalRenderer>
-            <RailTable
-              isLoading={isLoading}
-              date={date}
-              times={times}
-              destinationStation={destinationStation}
-            />
+            <RailTable isLoading={isLoading} date={date} times={times} />
             <ConditionalRenderer isShowContent={!isMobile}>
               <div className="google-ad mobile--hide">
                 <ins
@@ -161,9 +157,5 @@ function App() {
     </>
   );
 }
-
-App.propTypes = {
-  // stations: PropTypes.array,
-};
 
 export default App;

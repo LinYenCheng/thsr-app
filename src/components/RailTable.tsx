@@ -1,41 +1,34 @@
 import { useState } from 'react';
 
-import {
-  getItemsWithDepartureTimeAfterNow,
-  getItemsWithTravelTimes,
-  sortDepartureTime,
-  sortArrivalTime,
-  sortTravelTime
-} from '../utils/util';
+import { sortByField } from '../utils/util';
+import { ITime } from '../types/times';
 
 type Props = {
-  date: any;
-  times: any;
+  times: ITime[];
   isLoading: boolean;
 };
 
-function RailTable({
-  date,
-  times,
-  isLoading = true
-  // originStation,
-}: Props) {
-  const [sortActiveMode, setSortActiveMode] = useState(0);
+const DEPARTURE_TIME = 'departureTime';
+const TRAVEL_TIME = 'travelTime';
+const ARRIVAL_TIME = 'arrivalTime';
+
+function RailTable({ times, isLoading = true }: Props) {
+  const [sortActiveColumn, setSortActiveColumn] = useState(DEPARTURE_TIME);
   const [departureTimeDSC, setDepartureTimeDSC] = useState(true);
   const [arrivalTimeDSC, setArrivalTimeDSC] = useState(true);
   const [travelTimeDSC, setTravelTimeDSC] = useState(true);
 
   const toggleSortDepartureTime = () => {
     setDepartureTimeDSC(!departureTimeDSC);
-    setSortActiveMode(0);
+    setSortActiveColumn(DEPARTURE_TIME);
   };
   const toggleSortTravelTime = () => {
     setTravelTimeDSC(!travelTimeDSC);
-    setSortActiveMode(1);
+    setSortActiveColumn(TRAVEL_TIME);
   };
   const toggleSortArrivalTime = () => {
     setArrivalTimeDSC(!arrivalTimeDSC);
-    setSortActiveMode(2);
+    setSortActiveColumn(ARRIVAL_TIME);
   };
 
   let blockTableRows;
@@ -65,52 +58,38 @@ function RailTable({
     );
   }
 
-  if (!isLoading) {
+  if (!isLoading && times.length) {
     // 先過濾資料，升序降序
     let finalData = [...times];
 
-    finalData = getItemsWithTravelTimes({
-      date,
-      finalData
+    finalData = sortByField({
+      data: finalData,
+      field: TRAVEL_TIME,
+      enableSort: sortActiveColumn === TRAVEL_TIME,
+      direction: travelTimeDSC ? 1 : -1
+    });
+    finalData = sortByField({
+      data: finalData,
+      field: DEPARTURE_TIME,
+      enableSort: sortActiveColumn === DEPARTURE_TIME,
+      direction: departureTimeDSC ? 1 : -1
+    });
+    finalData = sortByField({
+      data: finalData,
+      field: ARRIVAL_TIME,
+      enableSort: sortActiveColumn === ARRIVAL_TIME,
+      direction: arrivalTimeDSC ? 1 : -1
     });
 
-    finalData = getItemsWithDepartureTimeAfterNow({
-      date,
-      finalData
-    });
-
-    finalData = sortTravelTime({
-      date,
-      finalData,
-      travelTimeDSC,
-      active: sortActiveMode === 1
-    });
-
-    finalData = sortDepartureTime({
-      date,
-      finalData,
-      departureTimeDSC,
-      active: sortActiveMode === 0
-    });
-
-    finalData = sortArrivalTime({
-      date,
-      finalData,
-      arrivalTimeDSC,
-      active: sortActiveMode === 2
-    });
-
-    blockTableRows = finalData.map((row) => {
-      const {
+    blockTableRows = finalData.map(
+      ({
         dailyTrainInfo,
         departureTime,
         stationName,
         destinationStationName,
         arrivalTime,
         travelTime
-      } = row;
-
-      return (
+      }) => (
         <tr key={departureTime}>
           <td>{`${stationName}➔${destinationStationName}`}</td>
           <td>{dailyTrainInfo.trainNo}</td>
@@ -118,9 +97,10 @@ function RailTable({
           <td>{arrivalTime}</td>
           <td>{travelTime}</td>
         </tr>
-      );
-    });
+      )
+    );
   }
+
   return (
     <div className="table-responsive">
       <table className="table">

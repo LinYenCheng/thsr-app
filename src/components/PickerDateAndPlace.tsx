@@ -34,12 +34,12 @@ interface StationName {
 
 type Props = {
   isMobile: boolean;
-  date: any;
+  date: string;
   stations: IStation[];
   originStation: string;
   destinationStation: string;
   swapLocation: () => void;
-  handleInputChange: () => void;
+  handleInputChange: (event: React.ChangeEvent) => void;
 };
 
 function PickerDateAndPlace({

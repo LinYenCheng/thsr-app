@@ -52,7 +52,7 @@ function localStorageProvider(): Map<string, any> {
 
 const swrConfig: SWRConfiguration = {
   provider: localStorageProvider,
-  refreshInterval: 5 * 60 * 1000,
+  refreshInterval: 6 * 60 * 60 * 1000,
   revalidateIfStale: false,
   revalidateOnFocus: false,
   revalidateOnReconnect: false,
