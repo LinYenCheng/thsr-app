@@ -89,59 +89,53 @@ function PickerDateAndPlace({
         />
       </div>
 
-      <div className="space-between">
-        <div className="form-group d-inline-block">
-          <span className="column-name">起|終點:</span>
-          <select
-            name="originStation"
-            id="originStation"
-            value={originStation}
-            onChange={handleInputChange}
-          >
-            <option disabled value="">
-              起點
+      <div className="form-group">
+        <span className="column-name">起|終點:</span>
+        <select
+          name="originStation"
+          id="originStation"
+          value={originStation}
+          onChange={handleInputChange}
+        >
+          <option disabled value="">
+            起點
+          </option>
+          {stations.map((station) => (
+            <option key={`originStation${station.stationID}`} value={station.stationID}>
+              {station.stationName.zhTw}
             </option>
-            {stations.map((station) => (
-              <option key={`originStation${station.stationID}`} value={station.stationID}>
-                {station.stationName.zhTw}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="form-group d-inline-block">
-          <button id="swapLocation" type="button" className="control__swap" onClick={swapLocation}>
-            <span className="glyphicon glyphicon-transfer" />
-          </button>
-        </div>
-        <div className="form-group d-inline-block">
-          <select
-            name="destinationStation"
-            id="destinationStation"
-            value={destinationStation}
-            onChange={handleInputChange}
-          >
-            <option disabled value="">
-              終點
+          ))}
+        </select>
+        <button id="swapLocation" type="button" className="control__swap" onClick={swapLocation}>
+          <span className="glyphicon glyphicon-transfer" />
+        </button>
+        <select
+          name="destinationStation"
+          id="destinationStation"
+          value={destinationStation}
+          onChange={handleInputChange}
+        >
+          <option disabled value="">
+            終點
+          </option>
+          {stations.map((station) => (
+            <option key={`destinationStation${station.stationID}`} value={station.stationID}>
+              {station.stationName.zhTw}
             </option>
-            {stations.map((station) => (
-              <option key={`destinationStation${station.stationID}`} value={station.stationID}>
-                {station.stationName.zhTw}
-              </option>
-            ))}
-          </select>
-        </div>
+          ))}
+        </select>
       </div>
 
       <div className="space-between">
         <a href="https://irs.thsrc.com.tw/IMINT/?locale=tw" target="_blank" rel="noreferrer">
           <span className="glyphicon glyphicon-link" />
-          <span> 高鐵訂票連結 </span>
+          <span>訂票連結</span>
         </a>
 
         <ConditionalRenderer isShowContent={isMobile}>
           <a href="https://appurl.io/cLHMAafm1q" target="_blank" rel="noreferrer">
             <span className="glyphicon glyphicon-phone" />
-            <span> 高鐵 App </span>
+            <span>高鐵 App</span>
           </a>
         </ConditionalRenderer>
       </div>

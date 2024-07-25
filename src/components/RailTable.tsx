@@ -42,9 +42,9 @@ function RailTable({ times, isLoading = true }: Props) {
     );
   } else if (!isLoading) {
     blockTableRows = (
-      <tr id="row-nodata">
-        <td colSpan={6} style={{ textAlign: 'center' }}>
-          無座位可販售
+      <tr id="row-nodata p-3">
+        <td colSpan={5} style={{ textAlign: 'center' }}>
+          無座位可販售: 請選擇其他的時間與區間
         </td>
       </tr>
     );
@@ -106,18 +106,18 @@ function RailTable({ times, isLoading = true }: Props) {
       <table className="table">
         <thead>
           <tr>
-            <th>起|終點</th>
+            <th>起點➔終點</th>
             <th>車次</th>
             <th id="departureTime" className="pointer" onClick={toggleSortDepartureTime}>
-              <span>發車</span>
+              <span>出發</span>
               <span className={departureTimeDSC ? 'arrow arrow--asc' : 'arrow arrow--dsc'} />
             </th>
             <th id="arrivalTime" className="pointer" onClick={toggleSortArrivalTime}>
-              <span>到達</span>
+              <span>抵達</span>
               <span className={arrivalTimeDSC ? 'arrow arrow--dsc' : 'arrow arrow--asc'} />
             </th>
             <th id="travelTime" className="pointer" onClick={toggleSortTravelTime}>
-              <span>總時間</span>
+              <span>時長</span>
               <span className={travelTimeDSC ? 'arrow arrow--dsc' : 'arrow arrow--asc'} />
             </th>
           </tr>

@@ -96,7 +96,7 @@ function App() {
               </div>
             </ConditionalRenderer>
           </div>
-          <div className="col-lg-8 col-md-7 col-sm-6 col-xs-12" style={{ marginBottom: '120px' }}>
+          <div className="col-lg-8 col-md-7 col-sm-6 col-xs-12">
             <ConditionalRenderer isShowContent={!isMobile}>
               <h3 id="title">高鐵班次時刻表快速查詢</h3>
             </ConditionalRenderer>

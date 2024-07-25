@@ -19,6 +19,7 @@ function useTimes({ originStation, destinationStation, date }: Props) {
   );
 
   if (data && data?.length) {
+    window.scrollTo(0, 0);
     const camelizedData = camelizeKeys(data) as ITime[];
     const finalData = camelizedData
       .filter(
