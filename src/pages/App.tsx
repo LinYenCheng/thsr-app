@@ -98,7 +98,7 @@ function App() {
           </div>
           <div className="col-lg-8 col-md-7 col-sm-6 col-xs-12">
             <ConditionalRenderer isShowContent={!isMobile}>
-              <h3 id="title">高鐵班次時刻表快速查詢</h3>
+              <h3 id="title">高鐵時刻表班次快速查詢</h3>
             </ConditionalRenderer>
             <RailTable isLoading={isLoading} date={date} times={times} />
             <ConditionalRenderer isShowContent={!isMobile}>
@@ -127,7 +127,10 @@ function App() {
           />
         </div>
       </div>
-      <div className="google-ad" style={{ width: '100%', marginBottom: '90px' }}>
+      <div
+        className="google-ad"
+        style={{ width: '100%', marginTop: '180px', marginBottom: '90px' }}
+      >
         <ins
           className="adsbygoogle"
           style={{ display: 'block' }}
