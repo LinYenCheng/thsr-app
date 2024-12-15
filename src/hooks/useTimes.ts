@@ -1,5 +1,5 @@
 import useSWR from 'swr';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { camelizeKeys } from 'humps';
 
 import { ITime } from '../types/times';
@@ -24,8 +24,7 @@ function useTimes({ originStation, destinationStation, date }: Props) {
     const finalData = camelizedData
       .filter(
         (item) =>
-          moment(`${item.trainDate} ${item?.originStopTime?.departureTime}`).unix() >
-          moment().unix()
+          dayjs(`${item.trainDate} ${item?.originStopTime?.departureTime}`).unix() > dayjs().unix()
       )
       .map((time) => {
         const { originStopTime, destinationStopTime, trainDate } = time;

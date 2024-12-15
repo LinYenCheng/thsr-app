@@ -1,14 +1,18 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+
+// Use the plugin
+dayjs.extend(utc);
 
 function minutesOfDay(m) {
-  return m.minutes() + m.hours() * 60;
+  return m.minute() + m.hour() * 60; // Use `minute()` and `hour()` instead of `minutes()` and `hours()`
 }
 
 function getTravelTime({ date, start, end }: { date: string; start: string; end: string }) {
-  const result = moment
+  const result = dayjs
     .utc(
-      moment(`${date} ${end}`, 'YYYY-MM-DD HH:mm').diff(
-        moment(`${date} ${start}`, 'YYYY-MM-DD HH:mm:ss')
+      dayjs(`${date} ${end}`, 'YYYY-MM-DD HH:mm').diff(
+        dayjs(`${date} ${start}`, 'YYYY-MM-DD HH:mm:ss')
       )
     )
     .format('HH:mm');
@@ -29,8 +33,8 @@ function sortByField({
   if (!enableSort) return data;
 
   return data.sort((a, b) => {
-    const valueA = moment(`${a?.trainDate} ${a[`${field}`]}`);
-    const valueB = moment(`${b?.trainDate} ${b[`${field}`]}`);
+    const valueA = dayjs(`${a?.trainDate} ${a[`${field}`]}`);
+    const valueB = dayjs(`${b?.trainDate} ${b[`${field}`]}`);
     return direction * (minutesOfDay(valueA) - minutesOfDay(valueB));
   });
 }
