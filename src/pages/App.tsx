@@ -2,7 +2,7 @@ import { useState } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
 import Swal from 'sweetalert2';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import withReactContent from 'sweetalert2-react-content';
 
 import PickerDateAndPlace from '../components/PickerDateAndPlace';
@@ -12,12 +12,13 @@ import useTimes from '../hooks/useTimes';
 import useStations from '../hooks/useStations';
 import ConditionalRenderer from '../components/ConditionalRenderer';
 
+import '../styles/bootstrap.css';
 import '../styles/App.scss';
 
 const MySwal = withReactContent(Swal);
 
 function App() {
-  const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
+  const [date, setDate] = useState(dayjs().format('YYYY-MM-DD'));
   const [originStation, setOriginStation] = useLocalStorageState('originStation', {
     defaultValue: ''
   });
@@ -142,9 +143,8 @@ function App() {
       <div className="container-fluid footer">
         <div className="row">
           <div className="col-md-12 center footer">
-            <i className="glyphicon glyphicon-time" />
             <span>
-              {`更新時間：${moment(updateTime || undefined).format('YYYY-MM-DD HH:mm:ss')}`}
+              {`更新時間：${dayjs(updateTime || undefined).format('YYYY-MM-DD HH:mm:ss')}`}{' '}
             </span>
             <br />
             <span>

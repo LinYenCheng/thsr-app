@@ -6,8 +6,9 @@
   <link rel="shortcut icon" href="/favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="theme-color" content="#000000" />
+  <meta name="description" content="台灣高鐵時刻表快速查詢北上與南下班次，同時提供手機版介面，輕鬆查詢最新高鐵車次、到站時間，涵蓋台北、新竹、台中、嘉義、台南、左營等各大車站，輕鬆掌握高鐵行程！">
   <meta property="og:site_name" content="前端三分鐘" />
-  <meta property="og:title" content="高鐵時刻表班次快速查詢 (2024 行動版)" />
+  <meta property="og:title" content="高鐵時刻表班次快速查詢 (2025 行動版)" />
   <meta property="og:image" content="/hsr.png" />
   <meta property="og:description"
     content="台灣高鐵時刻表快速查詢北上與南下班次，同時提供手機版介面，輕鬆查詢最新高鐵車次、到站時間，涵蓋台北、新竹、台中、嘉義、台南、左營等各大車站，輕鬆掌握高鐵行程！" />
@@ -16,34 +17,18 @@
 
   <!-- Preconnect and Preload -->
   <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
-  <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" as="style" />
+  <link rel="preconnect" href="https://tdx.transportdata.tw" crossorigin>
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" />
-
-  <title>台灣高鐵時刻表快速查詢 (2024 北上南下班次)</title>
-
-  <style>
-    /* Add critical CSS for the page above-the-fold rendering */
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #fff;
-    }
-  </style>
+  <title>台灣高鐵時刻表快速查詢 (2025 北上南下班次)</title>
 </head>
 
 <body>
   <noscript> You need to enable JavaScript to run this app. </noscript>
   <div id="root"></div>
-
-  <!-- Preload Critical JS -->
-  <script async src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
-  <script async src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
-
   <!-- Async JavaScript -->
   <script async type="module" src="/src/index.tsx"></script>
   <!-- Add async for non-essential scripts like tracking -->
-  <script async src="/gtag.js"></script>
+  <script defer src="/gtag.js"></script>
 </body>
 
 </html>

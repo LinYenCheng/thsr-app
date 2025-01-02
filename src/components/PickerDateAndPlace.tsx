@@ -1,4 +1,5 @@
-import moment from 'moment';
+/* eslint-disable jsx-a11y/label-has-associated-control */
+import dayjs from 'dayjs';
 import Swal from 'sweetalert2';
 import 'date-input-polyfill';
 
@@ -77,20 +78,24 @@ function PickerDateAndPlace({
   return (
     <div className="control">
       <div className="form-group">
-        <span className="column-name">日期:</span>
+        <label htmlFor="date" className="column-name">
+          日期:
+        </label>
         <input
           name="date"
           id="date"
           type="date"
-          min={moment().format('YYYY-MM-DD')}
-          max={moment().add(8, 'month').format('YYYY-MM-DD')}
+          min={dayjs().format('YYYY-MM-DD')}
+          max={dayjs().add(8, 'month').format('YYYY-MM-DD')}
           value={date}
           onChange={handleInputChange}
         />
       </div>
 
       <div className="form-group">
-        <span className="column-name">起|終點:</span>
+        <label htmlFor="originStation" className="column-name">
+          起|終點:
+        </label>
         <select
           name="originStation"
           id="originStation"
@@ -107,7 +112,7 @@ function PickerDateAndPlace({
           ))}
         </select>
         <button id="swapLocation" type="button" className="control__swap" onClick={swapLocation}>
-          <span className="glyphicon glyphicon-transfer" />
+          <span>⇆</span>
         </button>
         <select
           name="destinationStation"
@@ -128,13 +133,13 @@ function PickerDateAndPlace({
 
       <div className="space-between">
         <a href="https://irs.thsrc.com.tw/IMINT/?locale=tw" target="_blank" rel="noreferrer">
-          <span className="glyphicon glyphicon-link" />
+          <span>🔗</span>
           <span>訂票連結</span>
         </a>
 
         <ConditionalRenderer isShowContent={isMobile}>
           <a href="https://appurl.io/cLHMAafm1q" target="_blank" rel="noreferrer">
-            <span className="glyphicon glyphicon-phone" />
+            <span>📲</span>
             <span>高鐵 App</span>
           </a>
         </ConditionalRenderer>
