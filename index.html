@@ -1,17 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 
 <head>
   <meta charset="utf-8" />
   <link rel="shortcut icon" href="/favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <meta name="theme-color" content="#000000" />
-  <meta name="description" content="最新高鐵時刻表，快速查詢北上與南下班次、到站時間，南港、台北、板橋、桃園、新竹、苗栗、台中、彰化、雲林、嘉義、台南、左營，輕鬆掌握高鐵行程！">
-  <meta property="og:site_name" content="前端三分鐘" />
-  <meta property="og:title" content="高鐵時刻表班次快速查詢" />
+  <meta name="theme-color" content="#f06000" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://linyencheng.github.io/thsr-app/" />
+
+  <!-- SEO Meta Tags -->
+  <title>2026 高鐵時刻表查詢：即時班次、車次與到站時間 (THSR)</title>
+  <meta name="description" content="2026 最新高鐵時刻表與班次查詢。即時掌握車次、到站抵達時間與停靠站，支援北上南下及加班車查詢。台北、台中、左營全台適用，快速簡潔的高鐵時間查詢首選。">
+  <meta name="keywords" content="高鐵時刻表, 高鐵班次查詢, 高鐵車次查詢, 高鐵到站時間, 高鐵抵達時間, 高鐵時間查詢, 高鐵停靠站查詢, 高鐵加班車查詢, 高鐵即時時刻表, 台灣高鐵時刻表, 高鐵時刻表北上, 高鐵時刻表南下, THSR, 高铁时刻表">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="2026 高鐵時刻表快速查詢" />
+  <meta property="og:url" content="https://linyencheng.github.io/thsr-app/" />
+  <meta property="og:title" content="2026 高鐵時刻表查詢：即時班次、車次與到站時間" />
+  <meta property="og:description" content="2026 最新高鐵時刻表與班次查詢，即時掌握車次、到站抵達時間與停靠站資訊。" />
   <meta property="og:image" content="/hsr.png" />
-  <meta property="og:description"
-    content="最新高鐵時刻表，快速查詢北上與南下班次、到站時間，南港、台北、板橋、桃園、新竹、苗栗、台中、彰化、雲林、嘉義、台南、左營，輕鬆掌握高鐵行程！" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:title" content="2026 高鐵時刻表查詢 - 即時班次、車次與到站時間" />
+  <meta property="twitter:description" content="快速查詢高鐵班次與到站時間，2026 最新時刻表更新。" />
+  <meta property="twitter:image" content="/hsr.png" />
+
   <!-- Manifest -->
   <link rel="manifest" href="/manifest.json" />
 
@@ -19,11 +35,32 @@
   <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
   <link rel="preconnect" href="https://tdx.transportdata.tw" crossorigin>
 
-  <title>高鐵時刻表班次快速查詢</title>
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "高鐵時刻表快速查詢",
+      "url": "https://linyencheng.github.io/thsr-app/",
+      "description": "提供 2026 最新高鐵時刻表、班次查詢、車次到站時間等即時資訊。",
+      "applicationCategory": "TravelApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0"
+      },
+      "featureList": [
+        "即時班次查詢",
+        "到站時間掌握",
+        "全台車站時刻表",
+        "離線查詢支援"
+      ]
+    }
+  </script>
 </head>
 
 <body>
-  <noscript> You need to enable JavaScript to run this app. </noscript>
+  <noscript> 您需要啟用 JavaScript 才能執行此應用程式。本工具提供 2026 最新高鐵時刻表與班次查詢服務。 </noscript>
   <div id="root"></div>
   <!-- Async JavaScript -->
   <script async type="module" src="/src/index.tsx"></script>
