@@ -1,8 +1,7 @@
 import useSWR from 'swr';
-import dayjs from 'dayjs';
 import { camelizeKeys } from 'humps';
 
-import { ITime } from '../types/times';
+import { ITime, TrainInfo } from '../types/times';
 import { getTravelTime } from '../utils/util';
 
 type Props = {
@@ -12,7 +11,7 @@ type Props = {
 };
 
 function useTimes({ originStation, destinationStation, date }: Props) {
-  const { data, isLoading } = useSWR(
+  const { data, isLoading } = useSWR<ITime[]>(
     originStation && destinationStation
       ? `/DailyTimetable/OD/${originStation}/to/${destinationStation}/${date}`
       : null
@@ -21,10 +20,11 @@ function useTimes({ originStation, destinationStation, date }: Props) {
   if (data && data?.length) {
     window.scrollTo(0, 0);
     const camelizedData = camelizeKeys(data) as ITime[];
-    const finalData = camelizedData
+    const finalData: TrainInfo[] = camelizedData
       .filter(
         (item) =>
-          dayjs(`${item.trainDate} ${item?.originStopTime?.departureTime}`).unix() > dayjs().unix()
+          new Date(`${item.trainDate} ${item?.originStopTime?.departureTime}`).getTime() >
+          Date.now()
       )
       .map((time) => {
         const { originStopTime, destinationStopTime, trainDate } = time;
@@ -55,7 +55,7 @@ function useTimes({ originStation, destinationStation, date }: Props) {
 
     return {
       isLoading,
-      updateTime: data ? data[0]?.UpdateTime : '',
+      updateTime: data ? (data[0] as any)?.UpdateTime : '',
       times: finalData
     };
   }
@@ -68,3 +68,4 @@ function useTimes({ originStation, destinationStation, date }: Props) {
 }
 
 export default useTimes;
+

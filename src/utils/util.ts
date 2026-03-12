@@ -1,29 +1,24 @@
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
-
-// Use the plugin
-dayjs.extend(utc);
-
-function minutesOfDay(m) {
-  return m.minute() + m.hour() * 60; // Use `minute()` and `hour()` instead of `minutes()` and `hours()`
+function minutesOfDay(d: Date) {
+  return d.getMinutes() + d.getHours() * 60;
 }
 
 function getTravelTime({ date, start, end }: { date: string; start: string; end: string }) {
-  const result = dayjs
-    .utc(
-      dayjs(`${date} ${end}`, 'YYYY-MM-DD HH:mm').diff(
-        dayjs(`${date} ${start}`, 'YYYY-MM-DD HH:mm:ss')
-      )
-    )
-    .format('HH:mm');
-  return result;
+  const diffMillis = new Date(`${date} ${end}`).getTime() - new Date(`${date} ${start}`).getTime();
+
+  const hours = Math.floor(diffMillis / (1000 * 60 * 60));
+  const minutes = Math.floor((diffMillis % (1000 * 60 * 60)) / (1000 * 60));
+
+  const formattedHours = String(hours).padStart(2, '0');
+  const formattedMinutes = String(minutes).padStart(2, '0');
+
+  return `${formattedHours}:${formattedMinutes}`;
 }
 
 function sortByField({
   data,
   field,
   direction,
-  enableSort
+  enableSort,
 }: {
   data: any[];
   field: string;
@@ -33,8 +28,8 @@ function sortByField({
   if (!enableSort) return data;
 
   return data.sort((a, b) => {
-    const valueA = dayjs(`${a?.trainDate} ${a[`${field}`]}`);
-    const valueB = dayjs(`${b?.trainDate} ${b[`${field}`]}`);
+    const valueA = new Date(`${a?.trainDate} ${a[field]}`);
+    const valueB = new Date(`${b?.trainDate} ${b[field]}`);
     return direction * (minutesOfDay(valueA) - minutesOfDay(valueB));
   });
 }

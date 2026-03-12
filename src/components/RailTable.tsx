@@ -1,18 +1,19 @@
 import { useState } from 'react';
 
 import { sortByField } from '../utils/util';
-import { ITime } from '../types/times';
+import { TrainInfo } from '../types/times';
 
-type Props = {
-  times: ITime[];
+interface Props {
+  times: TrainInfo[];
   isLoading: boolean;
-};
+  date: string;
+}
 
 const DEPARTURE_TIME = 'departureTime';
 const TRAVEL_TIME = 'travelTime';
 const ARRIVAL_TIME = 'arrivalTime';
 
-function RailTable({ times, isLoading = true }: Props) {
+function RailTable({ times, isLoading = true, date }: Props) {
   const [sortActiveColumn, setSortActiveColumn] = useState(DEPARTURE_TIME);
   const [departureTimeDSC, setDepartureTimeDSC] = useState(true);
   const [arrivalTimeDSC, setArrivalTimeDSC] = useState(true);

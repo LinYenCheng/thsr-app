@@ -1,7 +1,6 @@
 import { SWRConfig, SWRConfiguration } from 'swr';
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
 import App from './pages/App';
+import { MySwal, MySwalProvider } from './context/MySwalContext';
 
 interface CustomError extends Error {
   info?: any;
@@ -9,7 +8,6 @@ interface CustomError extends Error {
 }
 
 const API_URL = 'https://tdx.transportdata.tw/api/basic/v2/Rail/THSR';
-const MySwal = withReactContent(Swal);
 
 const fetcher = async (resource: string): Promise<any> => {
   const res = await fetch(`${API_URL}${resource}`);
@@ -64,7 +62,9 @@ const swrConfig: SWRConfiguration = {
 export default function Root() {
   return (
     <SWRConfig value={swrConfig}>
-      <App />
+      <MySwalProvider>
+        <App />
+      </MySwalProvider>
     </SWRConfig>
   );
 }

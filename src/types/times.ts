@@ -1,8 +1,16 @@
+export interface StopTime {
+  stopSequence: number;
+  stationID: string;
+  stationName: StationName;
+  arrivalTime: string;
+  departureTime: string;
+}
+
 export interface ITime {
   trainDate: string;
   dailyTrainInfo: DailyTrainInfo;
-  originStopTime: OriginStopTime;
-  destinationStopTime: DestinationStopTime;
+  originStopTime: StopTime;
+  destinationStopTime: StopTime;
   updateTime: string;
   versionID: number;
 }
@@ -17,25 +25,17 @@ export interface DailyTrainInfo {
   note: Note;
 }
 
+export interface TrainInfo extends ITime {
+  stationName: string;
+  destinationStationName?: string;
+  arrivalTime?: string;
+  departureTime: string;
+  travelTime?: string;
+}
+
 export interface Note {}
 
 export interface StationName {
   zhTw: string;
   en: string;
-}
-
-export interface OriginStopTime {
-  stopSequence: number;
-  stationID: string;
-  stationName: StationName;
-  arrivalTime: string;
-  departureTime: string;
-}
-
-export interface DestinationStopTime {
-  stopSequence: number;
-  stationID: string;
-  stationName: StationName;
-  arrivalTime: string;
-  departureTime: string;
 }

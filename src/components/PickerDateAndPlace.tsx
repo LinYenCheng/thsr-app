@@ -1,9 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import dayjs from 'dayjs';
-import Swal from 'sweetalert2';
 import 'date-input-polyfill';
 
-import srcGift from './assets/gift.jpg';
 import ConditionalRenderer from './ConditionalRenderer';
 
 interface IStation {
@@ -33,7 +30,7 @@ interface StationName {
   en: string;
 }
 
-type Props = {
+interface Props {
   isMobile: boolean;
   date: string;
   stations: IStation[];
@@ -41,7 +38,7 @@ type Props = {
   destinationStation: string;
   swapLocation: () => void;
   handleInputChange: (event: React.ChangeEvent) => void;
-};
+}
 
 function PickerDateAndPlace({
   isMobile,
@@ -52,28 +49,9 @@ function PickerDateAndPlace({
   handleInputChange,
   swapLocation
 }: Props) {
-  const openGift = () => {
-    if (window.innerWidth > 500) {
-      Swal.fire({
-        title: '喜歡這個網站，贊助前端三分鐘',
-        imageUrl: srcGift,
-        showConfirmButton: false,
-        imageAlt: '感謝您贊助前端三分鐘',
-        showCancelButton: true,
-        cancelButtonText: '關閉'
-      });
-    } else {
-      Swal.fire({
-        title: '<strong>如果喜歡這個網站，點擊下方連結贊助前端三分鐘，感謝您!</strong>',
-        icon: 'success',
-        html: '<a style="font-size: 2rem;" href="https://www.jkopay.com/transfer?j=Transfer:901546234">街口支付贊助連結</a> ',
-        focusConfirm: false,
-        confirmButtonColor: '#dd5500',
-        confirmButtonText: '<i class="fa fa-thumbs-up"></i> 謝謝您!',
-        confirmButtonAriaLabel: 'Thumbs up, great!'
-      });
-    }
-  };
+  const today = new Date();
+  const maxDate = new Date();
+  maxDate.setMonth(today.getMonth() + 8);
 
   return (
     <div className="control">
@@ -85,8 +63,8 @@ function PickerDateAndPlace({
           name="date"
           id="date"
           type="date"
-          min={dayjs().format('YYYY-MM-DD')}
-          max={dayjs().add(8, 'month').format('YYYY-MM-DD')}
+          min={today.toLocaleDateString('sv')}
+          max={maxDate.toLocaleDateString('sv')}
           value={date}
           onChange={handleInputChange}
         />
@@ -144,16 +122,6 @@ function PickerDateAndPlace({
           </a>
         </ConditionalRenderer>
       </div>
-
-      <ConditionalRenderer isShowContent={!isMobile}>
-        <hr />
-        <div className="text-center">
-          <button type="button" className="button-gift" onClick={openGift}>
-            <span className="glyphicon glyphicon-gift" />
-            <span> 喜歡這個網站 </span>
-          </button>
-        </div>
-      </ConditionalRenderer>
       <ConditionalRenderer isShowContent={!isMobile}>
         <br />
         <div className="google-ad mobile--hide">

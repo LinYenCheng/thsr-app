@@ -1,10 +1,6 @@
 import { useState } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
-import Swal from 'sweetalert2';
-import dayjs from 'dayjs';
-import withReactContent from 'sweetalert2-react-content';
-
 import PickerDateAndPlace from '../components/PickerDateAndPlace';
 import RailTable from '../components/RailTable';
 
@@ -14,11 +10,10 @@ import ConditionalRenderer from '../components/ConditionalRenderer';
 
 import '../styles/bootstrap.css';
 import '../styles/App.scss';
-
-const MySwal = withReactContent(Swal);
+import { MySwal } from '../context/MySwalContext';
 
 function App() {
-  const [date, setDate] = useState(dayjs().format('YYYY-MM-DD'));
+  const [date, setDate] = useState(new Date().toLocaleDateString('sv'));
   const [originStation, setOriginStation] = useLocalStorageState('originStation', {
     defaultValue: ''
   });
@@ -144,7 +139,16 @@ function App() {
         <div className="row">
           <div className="col-md-12 center footer">
             <span>
-              {`更新時間：${dayjs(updateTime || undefined).format('YYYY-MM-DD HH:mm:ss')}`}{' '}
+              {updateTime &&
+                `更新時間：${new Intl.DateTimeFormat('sv', {
+                  year: 'numeric',
+                  month: '2-digit',
+                  day: '2-digit',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  second: '2-digit',
+                  hour12: false
+                }).format(new Date(updateTime))}`}
             </span>
             <br />
             <span>
@@ -152,7 +156,7 @@ function App() {
               <a href="https://linyencheng.github.io/" target="_blank" rel="noreferrer">
                 前端三分鐘
               </a>
-              <span> 2023</span>
+              <span> 2026</span>
             </span>
           </div>
         </div>

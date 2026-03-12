@@ -4,6 +4,8 @@
   "private": true,
   "homepage": "http://linyencheng.github.io/thsr-app",
   "devDependencies": {
+    "@eslint/compat": "^2.0.3",
+    "@eslint/js": "^10.0.1",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
@@ -17,16 +19,10 @@
     "@vitejs/plugin-react-swc": "^3.7.2",
     "@vitest/coverage-istanbul": "^2.1.8",
     "coverage-badges-cli": "^2.1.0",
-    "eslint": "^8.57.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-airbnb-typescript": "^18.0.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-jsx-a11y": "^6.10.2",
-    "eslint-plugin-only-warn": "^1.1.0",
-    "eslint-plugin-prettier": "^5.2.1",
-    "eslint-plugin-react": "^7.37.2",
-    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint": "^9.39.3",
+    "eslint-config-airbnb-extended": "^3.0.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
     "gh-pages": "^6.2.0",
     "jsdom": "^25.0.1",
     "prettier": "^3.4.2",
@@ -38,13 +34,9 @@
   },
   "dependencies": {
     "date-input-polyfill": "^2.14.0",
-    "dayjs": "^1.11.13",
-    "dayjs-plugin-utc": "^0.1.2",
     "humps": "^2.0.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "sweetalert2": "^11.15.0",
-    "sweetalert2-react-content": "^5.0.7",
     "swr": "^2.2.5",
     "use-local-storage-state": "^19.5.0"
   },
@@ -58,6 +50,8 @@
     "make-badges": "coverage-badges",
     "predeploy": "CI=false npm run build",
     "format": "prettier --write \"src/**/*.{js,scss}\"",
+    "eslint": "eslint --ext .js,.jsx,.ts,.tsx src",
+    "eslint:fix": "eslint --ext .js,.jsx,.ts,.tsx src --fix",
     "deploy": "gh-pages -b gh-pages -d build"
   }
 }
