@@ -1,12 +1,12 @@
-import { ReactNode } from 'react';
+import { ComponentChildren } from 'preact';
 
 interface ConditionalRendererProps {
   isShowContent: boolean;
-  children: ReactNode;
+  children: ComponentChildren;
 }
 
 function ConditionalRenderer({ isShowContent, children }: ConditionalRendererProps) {
-  return isShowContent ? children : null;
+  return isShowContent ? (children as any) : null;
 }
 
 export default ConditionalRenderer;

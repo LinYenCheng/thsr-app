@@ -16,6 +16,6 @@
     "noEmit": true,
     "jsx": "react-jsx",
   },
-  "include": ["src", "@testing-library/jest-dom"],
+  "include": ["src", "@testing-library/jest-dom", "src/types/react-compat.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

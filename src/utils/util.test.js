@@ -1,15 +1,12 @@
-import { expect, describe, it } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { getTravelTime } from './util';
 
-describe.concurrent('util', () => {
+describe('util Functions', () => {
   it('should calculate the correct travel time', () => {
-    const date = '2023-12-10';
-    const start = '08:00';
-    const end = '10:30';
-    const expectedTravelTime = '02:30';
-
-    const result = getTravelTime({ date, start, end });
-
-    expect(result).toBe(expectedTravelTime);
+    const date = '2026-04-28';
+    const start = '10:00';
+    const end = '11:30';
+    const travelTime = getTravelTime({ date, start, end });
+    expect(travelTime).toBe('01:30');
   });
 });

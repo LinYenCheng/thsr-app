@@ -1,13 +1,5 @@
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useRef,
-  useEffect,
-  ReactNode,
-  useMemo
-} from 'react';
-import { createPortal } from 'react-dom';
+import { ComponentChildren } from 'preact';
+import { createPortal, createContext, useContext, useMemo, useRef, useState, useEffect, useCallback } from 'preact/compat';
 
 interface SwalConfig {
   icon?: string;
@@ -29,7 +21,7 @@ export const MySwal = {
   }
 };
 
-export function MySwalProvider({ children }: { children: ReactNode }) {
+export function MySwalProvider({ children }: { children: ComponentChildren }) {
   const [config, setConfig] = useState<SwalConfig | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
 

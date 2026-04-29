@@ -37,7 +37,7 @@ interface Props {
   originStation: string;
   destinationStation: string;
   swapLocation: () => void;
-  handleInputChange: (event: React.ChangeEvent) => void;
+  handleInputChange: (event: any) => void;
 }
 
 function PickerDateAndPlace({

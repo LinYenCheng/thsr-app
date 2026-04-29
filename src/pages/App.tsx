@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from 'preact/compat';
 import useLocalStorageState from 'use-local-storage-state';
 
 import PickerDateAndPlace from '../components/PickerDateAndPlace';
@@ -29,7 +29,7 @@ function App() {
     date
   });
 
-  const handleInputChange = (event: React.ChangeEvent) => {
+  const handleInputChange = (event: any) => {
     const { name, value } = event.target as HTMLInputElement;
     event.preventDefault();
 

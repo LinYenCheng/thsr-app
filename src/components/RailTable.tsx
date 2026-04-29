@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from 'preact/compat';
 
 import { sortByField } from '../utils/util';
 import { TrainInfo } from '../types/times';

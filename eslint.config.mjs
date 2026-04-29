@@ -20,14 +20,14 @@ const jsConfig = defineConfig([
   // ESLint recommended config
   {
     name: 'js/config',
-    ...js.configs.recommended
+    ...js.configs.recommended,
   },
   // Stylistic plugin
   plugins.stylistic,
   // Import X plugin
   plugins.importX,
   // Airbnb base recommended config
-  ...configs.base.recommended
+  ...configs.base.recommended,
 ]);
 
 const reactConfig = defineConfig([
@@ -39,21 +39,6 @@ const reactConfig = defineConfig([
   plugins.reactA11y,
   // Airbnb React recommended config
   ...configs.react.recommended,
-  // Ensure the plugin knows we're using the new automatic JSX runtime
-  {
-    settings: {
-      react: {
-        version: 'detect',
-        jsxRuntime: 'automatic'
-      }
-    }
-  },
-  // Disable rule requiring React in scope for JSX (React 17+ automatic runtime)
-  {
-    rules: {
-      'react/react-in-jsx-scope': 'off'
-    }
-  }
 ]);
 
 const typescriptConfig = defineConfig([
@@ -62,7 +47,7 @@ const typescriptConfig = defineConfig([
   // Airbnb base TypeScript config
   ...configs.base.typescript,
   // Airbnb React TypeScript config
-  ...configs.react.typescript
+  ...configs.react.typescript,
 ]);
 
 const prettierConfig = defineConfig([
@@ -70,42 +55,17 @@ const prettierConfig = defineConfig([
   {
     name: 'prettier/plugin/config',
     plugins: {
-      prettier: prettierPlugin
-    }
+      prettier: prettierPlugin,
+    },
   },
   // Prettier config
   {
     name: 'prettier/config',
     rules: {
       ...prettierConfigRules,
-      'prettier/prettier': 'error'
-    }
-  }
-]);
-
-// Project-specific relaxations and custom rules
-const customConfig = defineConfig([
-  {
-    ignores: ['src/generateJSON.js']
+      'prettier/prettier': 'error',
+    },
   },
-  {
-    rules: {
-      'react/require-default-props': 'off',
-      'react/state-in-constructor': 'off',
-      'react/destructuring-assignment': 'off',
-      'no-plusplus': 'off',
-      '@typescript-eslint/naming-convention': 'off',
-      '@typescript-eslint/no-empty-object-type': 'off',
-      'no-empty-pattern': 'off',
-      'jsx-a11y/anchor-is-valid': 'off',
-      'jsx-a11y/click-events-have-key-events': 'off',
-      'jsx-a11y/no-static-element-interactions': 'off',
-      '@typescript-eslint/no-use-before-define': 'off',
-      'consistent-return': 'off',
-      // Allow single-export modules common in small utils/components
-      'import-x/prefer-default-export': 'off'
-    }
-  }
 ]);
 
 export default defineConfig([
@@ -119,6 +79,4 @@ export default defineConfig([
   ...typescriptConfig,
   // Prettier config
   ...prettierConfig,
-  // Custom project rules
-  ...customConfig
 ]);
