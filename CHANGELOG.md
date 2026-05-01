@@ -1,6 +1,20 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+
+## [1.3.0](https://github.com/LinYenCheng/thsr-app/compare/v1.2.0...v1.3.0) (2026-05-01)
+
+
+### Features
+
+* add useLocalStorageState ([f5a37d8](https://github.com/LinYenCheng/thsr-app/commit/f5a37d81c78cc6ea37ddc8cf8fe038cfa92f8a69))
+* migration useStations to typescript ([0179a7b](https://github.com/LinYenCheng/thsr-app/commit/0179a7b9b1afba0cf6b7d5cf622abac1b2446c21))
+
+
+### Bug Fixes
+
+* reduce api call ([8e8cc44](https://github.com/LinYenCheng/thsr-app/commit/8e8cc4478dfc9f6bfbcc15d233be1c6d0ecb5bed))
+* seo and ux ([63a5156](https://github.com/LinYenCheng/thsr-app/commit/63a5156bb9ae0a0992bb75b96ab20fff82460bfc))
 
 ## 1.2.0 (2023-12-31)
 
