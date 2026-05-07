@@ -1,31 +1,32 @@
-import useSWR from 'swr';
 import { camelizeKeys } from 'humps';
 
 import { ITime, TrainInfo } from '../types/times';
 import { getTravelTime } from '../utils/util';
+import { useLocalCache } from './useLocalCache';
 
-type Props = {
+interface Props {
   originStation: string;
   destinationStation: string;
   date: string;
-};
+}
+
 
 function useTimes({ originStation, destinationStation, date }: Props) {
-  const { data, isLoading } = useSWR<ITime[]>(
+  const { data, isLoading } = useLocalCache<ITime[]>(
     originStation && destinationStation
       ? `/DailyTimetable/OD/${originStation}/to/${destinationStation}/${date}`
-      : null
+      : null,
   );
 
   if (data && data?.length) {
     window.scrollTo(0, 0);
     const camelizedData = camelizeKeys(data) as ITime[];
     const finalData: TrainInfo[] = camelizedData
-      .filter(
-        (item) =>
-          new Date(`${item.trainDate} ${item?.originStopTime?.departureTime}`).getTime() >
-          Date.now()
-      )
+      .filter((item) => {
+        const timeString = `${item.trainDate} ${item?.originStopTime?.departureTime}`;
+        const currentTrainDepartureTime = new Date(timeString).getTime();
+        return currentTrainDepartureTime > Date.now();
+      })
       .map((time) => {
         const { originStopTime, destinationStopTime, trainDate } = time;
         let arrivalTime;
@@ -40,7 +41,7 @@ function useTimes({ originStation, destinationStation, date }: Props) {
           travelTime = getTravelTime({
             date: trainDate,
             start: originStopTime.departureTime,
-            end: destinationStopTime.arrivalTime
+            end: destinationStopTime.arrivalTime,
           });
         }
         return {
@@ -49,23 +50,22 @@ function useTimes({ originStation, destinationStation, date }: Props) {
           arrivalTime,
           departureTime: originStopTime.departureTime,
           travelTime,
-          ...time
+          ...time,
         };
       });
 
     return {
       isLoading,
       updateTime: data ? (data[0] as any)?.UpdateTime : '',
-      times: finalData
+      times: finalData,
     };
   }
 
   return {
     isLoading,
     updateTime: '',
-    times: []
+    times: [],
   };
 }
 
 export default useTimes;
-

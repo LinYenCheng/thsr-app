@@ -1,6 +1,6 @@
-import useSWR from 'swr';
 import { camelizeKeys } from 'humps';
 import { CAMELIZE_STATIONS, IStation } from '../constants/stations';
+import { useLocalCache } from './useLocalCache';
 
 interface IStationsResult {
   isLoading: boolean;
@@ -8,7 +8,7 @@ interface IStationsResult {
 }
 
 function useStations(): IStationsResult {
-  const { data, isLoading } = useSWR(`/Station`);
+  const { data, isLoading } = useLocalCache(`/Station`);
 
   if (data && data?.length) {
     return {

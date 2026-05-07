@@ -68,6 +68,15 @@ const prettierConfig = defineConfig([
   },
 ]);
 
+const customConfig = defineConfig([
+  {
+    name: 'custom/rules',
+    rules: {
+      'react/react-in-jsx-scope': 'off',
+    },
+  },
+]);
+
 export default defineConfig([
   // Ignore files and folders listed in .gitignore
   includeIgnoreFile(gitignorePath),
@@ -79,4 +88,6 @@ export default defineConfig([
   ...typescriptConfig,
   // Prettier config
   ...prettierConfig,
+  // Custom config
+  ...customConfig,
 ]);

@@ -51,7 +51,7 @@ function PickerDateAndPlace({
 }: Props) {
   const today = new Date();
   const maxDate = new Date();
-  maxDate.setMonth(today.getMonth() + 8);
+  maxDate.setDate(today.getDate() + 45);
 
   return (
     <div className="control">

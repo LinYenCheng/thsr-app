@@ -15,10 +15,10 @@ import { MySwal } from '../context/MySwalContext';
 function App() {
   const [date, setDate] = useState(new Date().toLocaleDateString('sv'));
   const [originStation, setOriginStation] = useLocalStorageState('originStation', {
-    defaultValue: ''
+    defaultValue: '',
   });
   const [destinationStation, setDestinationStation] = useLocalStorageState('destinationStation', {
-    defaultValue: ''
+    defaultValue: '',
   });
   const isMobile = window.innerWidth < 768;
 
@@ -26,7 +26,7 @@ function App() {
   const { updateTime, times, isLoading } = useTimes({
     originStation,
     destinationStation,
-    date
+    date,
   });
 
   const handleInputChange = (event: any) => {
@@ -54,7 +54,7 @@ function App() {
         timer: 5000,
         title: '起點和終點需不同',
         showConfirmButton: false,
-        showCloseButton: true
+        showCloseButton: true,
       });
     }
   };
@@ -147,7 +147,7 @@ function App() {
                   hour: '2-digit',
                   minute: '2-digit',
                   second: '2-digit',
-                  hour12: false
+                  hour12: false,
                 }).format(new Date(updateTime))}`}
             </span>
             <br />

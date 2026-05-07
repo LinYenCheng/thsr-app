@@ -1,70 +1,14 @@
-import { SWRConfig, SWRConfiguration } from 'swr';
 import App from './pages/App';
-import { MySwal, MySwalProvider } from './context/MySwalContext';
+import { MySwalProvider } from './context/MySwalContext';
+import { cleanupExpiredCache } from './hooks/useLocalCache';
 
-interface CustomError extends Error {
-  info?: any;
-  status?: number;
-}
-
-const API_URL = 'https://tdx.transportdata.tw/api/basic/v2/Rail/THSR';
-
-const fetcher = async (resource: string): Promise<any> => {
-  const res = await fetch(`${API_URL}${resource}`);
-
-  // If the status code is not in the range 200-299,
-  // we still try to parse and throw it.
-  if (!res.ok) {
-    const error: CustomError = new Error('An error occurred while fetching the data.');
-    // Attach extra info to the error object.
-
-    error.info = await res.json();
-    error.status = res.status;
-
-    MySwal.fire({
-      icon: 'info',
-      title: error.info?.Message || '抱歉，伺服器維修中',
-      showConfirmButton: false,
-      showCloseButton: true
-    });
-
-    throw error;
-  }
-
-  return res.json();
-};
-
-function localStorageProvider(): Map<string, any> {
-  // When initializing, we restore the data from `localStorage` into a map.
-  const map = new Map<string, any>(JSON.parse(localStorage.getItem('app-cache') || '[]'));
-
-  // Before unloading the app, we write back all the data into `localStorage`.
-  window.addEventListener('beforeunload', () => {
-    const appCache = JSON.stringify(Array.from(map.entries()));
-    localStorage.setItem('app-cache', appCache);
-  });
-
-  // We still use the map for write & read for performance.
-  return map;
-}
-
-const swrConfig: SWRConfiguration = {
-  provider: localStorageProvider,
-  refreshInterval: 6 * 60 * 60 * 1000,
-  revalidateIfStale: false,
-  revalidateOnFocus: false,
-  revalidateOnReconnect: false,
-  shouldRetryOnError: false,
-  keepPreviousData: true,
-  fetcher
-} as any;
+// 应用启动时清理过期缓存
+cleanupExpiredCache();
 
 export default function Root() {
   return (
-    <SWRConfig value={swrConfig}>
-      <MySwalProvider>
-        <App />
-      </MySwalProvider>
-    </SWRConfig>
+    <MySwalProvider>
+      <App />
+    </MySwalProvider>
   );
 }

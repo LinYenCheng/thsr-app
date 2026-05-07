@@ -15,7 +15,9 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "jsxImportSource": "preact"
   },
-  "include": ["src", "@testing-library/jest-dom", "src/types/react-compat.d.ts"],
+  "include": ["src", "src/types/react-compat.d.ts"],
+  "types": ["@testing-library/jest-dom"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -1,5 +1,13 @@
 import { ComponentChildren } from 'preact';
-import { createPortal, createContext, useContext, useMemo, useRef, useState, useEffect, useCallback } from 'preact/compat';
+import {
+  createPortal,
+  createContext,
+  useContext,
+  useMemo,
+  useRef,
+  useState,
+  useEffect,
+} from 'preact/compat';
 
 interface SwalConfig {
   icon?: string;
