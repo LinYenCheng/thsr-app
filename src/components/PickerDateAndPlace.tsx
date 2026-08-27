@@ -47,18 +47,16 @@ function PickerDateAndPlace({
   originStation = '1030',
   destinationStation = '1060',
   handleInputChange,
-  swapLocation
+  swapLocation,
 }: Props) {
   const today = new Date();
   const maxDate = new Date();
   maxDate.setDate(today.getDate() + 45);
 
   return (
-    <div className="control">
-      <div className="form-group">
-        <label htmlFor="date" className="column-name">
-          日期:
-        </label>
+    <section className="control" aria-label="查詢條件">
+      <div className="form-group control__date">
+        <label htmlFor="date">出發日期</label>
         <input
           name="date"
           id="date"
@@ -70,43 +68,53 @@ function PickerDateAndPlace({
         />
       </div>
 
-      <div className="form-group">
-        <label htmlFor="originStation" className="column-name">
-          起|終點:
-        </label>
-        <select
-          name="originStation"
-          id="originStation"
-          value={originStation}
-          onChange={handleInputChange}
-        >
-          <option disabled value="">
-            起點
-          </option>
-          {stations.map((station) => (
-            <option key={`originStation${station.stationID}`} value={station.stationID}>
-              {station.stationName.zhTw}
+      <div className="form-group route-picker">
+        <div className="route-stop">
+          <label htmlFor="originStation">起點</label>
+          <select
+            name="originStation"
+            id="originStation"
+            value={originStation}
+            onChange={handleInputChange}
+          >
+            <option disabled value="">
+              選擇起點
             </option>
-          ))}
-        </select>
-        <button id="swapLocation" type="button" className="control__swap" onClick={swapLocation}>
-          <span>⇆</span>
+            {stations.map((station) => (
+              <option key={`originStation${station.stationID}`} value={station.stationID}>
+                {station.stationName.zhTw}
+              </option>
+            ))}
+          </select>
+        </div>
+        <button
+          id="swapLocation"
+          type="button"
+          className="control__swap"
+          onClick={swapLocation}
+          aria-label="交換起點與終點"
+          title="交換起點與終點"
+        >
+          ⇅
         </button>
-        <select
-          name="destinationStation"
-          id="destinationStation"
-          value={destinationStation}
-          onChange={handleInputChange}
-        >
-          <option disabled value="">
-            終點
-          </option>
-          {stations.map((station) => (
-            <option key={`destinationStation${station.stationID}`} value={station.stationID}>
-              {station.stationName.zhTw}
+        <div className="route-stop">
+          <label htmlFor="destinationStation">終點</label>
+          <select
+            name="destinationStation"
+            id="destinationStation"
+            value={destinationStation}
+            onChange={handleInputChange}
+          >
+            <option disabled value="">
+              選擇終點
             </option>
-          ))}
-        </select>
+            {stations.map((station) => (
+              <option key={`destinationStation${station.stationID}`} value={station.stationID}>
+                {station.stationName.zhTw}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       <div className="space-between">
@@ -135,7 +143,7 @@ function PickerDateAndPlace({
           />
         </div>
       </ConditionalRenderer>
-    </div>
+    </section>
   );
 }
 

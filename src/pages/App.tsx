@@ -65,12 +65,22 @@ function App() {
   };
 
   return (
-    <>
-      <div className="container">
+    <div className="app-shell">
+      <header className="app-header">
+        <div className="container">
+          <span className="brand-mark" aria-hidden="true">THSR</span>
+          <div>
+            <p className="eyebrow">TAIWAN HIGH SPEED RAIL</p>
+            <h1 id="title">高鐵時刻表班次快速查詢</h1>
+            <p className="header-copy">選好日期與區間，即時查看接下來可搭乘的班次。</p>
+          </div>
+        </div>
+      </header>
+      <main className="container app-main">
         <div className="row content--mobile">
-          <div className="col-lg-4 col-md-5 col-sm-6 col-xs-12 sticky mobile--hide">
+          <aside className="col-lg-4 col-md-5 col-sm-6 col-xs-12 sticky">
             <PickerDateAndPlace
-              isMobile
+              isMobile={isMobile}
               date={date}
               stations={stations}
               originStation={originStation}
@@ -78,7 +88,6 @@ function App() {
               handleInputChange={handleInputChange}
               swapLocation={swapLocation}
             />
-            <br />
             <ConditionalRenderer isShowContent={!isMobile}>
               <div className="google-ad">
                 <ins
@@ -91,11 +100,18 @@ function App() {
                 />
               </div>
             </ConditionalRenderer>
-          </div>
-          <div className="col-lg-8 col-md-7 col-sm-6 col-xs-12">
-            <ConditionalRenderer isShowContent={!isMobile}>
-              <h3 id="title">高鐵時刻表班次快速查詢</h3>
-            </ConditionalRenderer>
+          </aside>
+          <section
+            className="col-lg-8 col-md-7 col-sm-6 col-xs-12 results-panel"
+            aria-labelledby="results-heading"
+          >
+            <div className="results-heading">
+              <div>
+                <p className="eyebrow">DEPARTURES</p>
+                <h2 id="results-heading">可搭乘班次</h2>
+              </div>
+              <span className="results-date">{date.replaceAll('-', '.')}</span>
+            </div>
             <RailTable isLoading={isLoading} date={date} times={times} />
             <ConditionalRenderer isShowContent={!isMobile}>
               <div className="google-ad mobile--hide">
@@ -109,20 +125,9 @@ function App() {
                 />
               </div>
             </ConditionalRenderer>
-          </div>
+          </section>
         </div>
-        <div className="position-fixed desktop--hide">
-          <PickerDateAndPlace
-            isMobile={isMobile}
-            date={date}
-            stations={stations}
-            originStation={originStation}
-            destinationStation={destinationStation}
-            handleInputChange={handleInputChange}
-            swapLocation={swapLocation}
-          />
-        </div>
-      </div>
+      </main>
       <div
         className="google-ad"
         style={{ width: '100%', marginTop: '180px', marginBottom: '90px' }}
@@ -135,7 +140,7 @@ function App() {
           data-ad-slot="1800981579"
         />
       </div>
-      <div className="container-fluid footer">
+      <footer className="container-fluid footer">
         <div className="row">
           <div className="col-md-12 center footer">
             <span>
@@ -160,8 +165,8 @@ function App() {
             </span>
           </div>
         </div>
-      </div>
-    </>
+      </footer>
+    </div>
   );
 }
 

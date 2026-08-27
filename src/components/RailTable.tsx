@@ -32,6 +32,9 @@ function RailTable({ times, isLoading = true, date }: Props) {
     setSortActiveColumn(ARRIVAL_TIME);
   };
 
+  const sortLabel = (column: string, descending: boolean) =>
+    `依${column}排序，目前為${descending ? '由早到晚' : '由晚到早'}`;
+
   let blockTableRows;
   if (isLoading) {
     blockTableRows = (
@@ -43,7 +46,7 @@ function RailTable({ times, isLoading = true, date }: Props) {
     );
   } else if (!isLoading) {
     blockTableRows = (
-      <tr id="row-nodata p-3">
+      <tr id="row-nodata">
         <td colSpan={5} style={{ textAlign: 'center' }}>
           無座位可販售: 請選擇其他的時間與區間
         </td>
@@ -104,22 +107,25 @@ function RailTable({ times, isLoading = true, date }: Props) {
 
   return (
     <div className="table-responsive">
-      <table className="table">
+      <table className="table" aria-label={`${date} 高鐵班次`}>
         <thead>
           <tr>
             <th>起點➔終點</th>
             <th>車次</th>
-            <th id="departureTime" className="pointer" onClick={toggleSortDepartureTime}>
-              <span>出發</span>
-              <span className={departureTimeDSC ? 'arrow arrow--asc' : 'arrow arrow--dsc'} />
+            <th id="departureTime">
+              <button type="button" className="sort-button" onClick={toggleSortDepartureTime} aria-label={sortLabel('出發時間', departureTimeDSC)}>
+                出發 <span aria-hidden="true" className={departureTimeDSC ? 'arrow arrow--asc' : 'arrow arrow--dsc'} />
+              </button>
             </th>
-            <th id="arrivalTime" className="pointer" onClick={toggleSortArrivalTime}>
-              <span>抵達</span>
-              <span className={arrivalTimeDSC ? 'arrow arrow--dsc' : 'arrow arrow--asc'} />
+            <th id="arrivalTime">
+              <button type="button" className="sort-button" onClick={toggleSortArrivalTime} aria-label={sortLabel('抵達時間', arrivalTimeDSC)}>
+                抵達 <span aria-hidden="true" className={arrivalTimeDSC ? 'arrow arrow--dsc' : 'arrow arrow--asc'} />
+              </button>
             </th>
-            <th id="travelTime" className="pointer" onClick={toggleSortTravelTime}>
-              <span>時長</span>
-              <span className={travelTimeDSC ? 'arrow arrow--dsc' : 'arrow arrow--asc'} />
+            <th id="travelTime">
+              <button type="button" className="sort-button" onClick={toggleSortTravelTime} aria-label={sortLabel('行車時間', travelTimeDSC)}>
+                時長 <span aria-hidden="true" className={travelTimeDSC ? 'arrow arrow--dsc' : 'arrow arrow--asc'} />
+              </button>
             </th>
           </tr>
         </thead>
