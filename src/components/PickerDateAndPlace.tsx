@@ -95,7 +95,7 @@ function PickerDateAndPlace({
           aria-label="交換起點與終點"
           title="交換起點與終點"
         >
-          ⇅
+          ⇄
         </button>
         <div className="route-stop">
           <label htmlFor="destinationStation">終點</label>
