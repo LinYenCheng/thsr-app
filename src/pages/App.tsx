@@ -130,7 +130,7 @@ function App() {
       </main>
       <div
         className="google-ad"
-        style={{ width: '100%', marginTop: '180px', marginBottom: '90px' }}
+        style={{ width: '100%', marginTop: '20px', marginBottom: '20px' }}
       >
         <ins
           className="adsbygoogle"
