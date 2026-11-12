@@ -1,1 +1,0 @@
-# thsr-app
